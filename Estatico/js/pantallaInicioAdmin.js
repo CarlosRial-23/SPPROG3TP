@@ -7,7 +7,7 @@ function clickerBtnIngresar() {
       const password = document.getElementById("password").value;
       if (nombre && password) {
         localStorage.setItem("nombreUsuario", nombre);
-        window.location.href = "/admin/productos.html";
+        window.location.href = "/admin/dashboard.html";
       } else {
         alert("Por favor completar todos los campos.")
       }
