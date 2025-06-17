@@ -1,0 +1,25 @@
+{
+  "pcs": [
+    {
+      "id" : 1,
+      "nombre": "PC oficina basica",
+      "url_imagen": "/images/pc_oficina.jpg",
+      "precio": 1200,
+      "cantidad" : 0
+    },
+    {
+      "id" : 2,
+      "nombre": "PC gamer L4000",
+      "url_imagen": "/images/pc_gamerBasica.jpg",
+      "precio": 2400,
+      "cantidad" : 0
+    },
+    {
+      "id" : 3,
+      "nombre": "PC Ultra R8500",
+      "url_imagen": "/images/pc_gamerPro.jpg",
+      "precio": 3800,
+      "cantidad" : 0
+    }
+  ]
+}

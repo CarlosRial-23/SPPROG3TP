@@ -1,0 +1,25 @@
+{
+  "monitores": [
+    {
+      "id" : 4,
+      "nombre": "ASUS L4511 21",
+      "url_imagen": "/images/monitor1.png",
+      "precio": 11000,
+      "cantidad" : 0
+    },
+    {
+      "id" : 5,
+      "nombre": "MSI Z200 25",
+      "url_imagen": "/images/monitor2.png",
+      "precio": 220000,
+      "cantidad" : 0
+    },
+    {
+      "id" : 6,
+      "nombre": "LG Ultra Gear 27",
+      "url_imagen": "/images/monitor3.png",
+      "precio": 330000,
+      "cantidad" : 0
+    }
+  ]
+}
