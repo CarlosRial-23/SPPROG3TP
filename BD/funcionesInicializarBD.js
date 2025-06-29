@@ -15,7 +15,24 @@ export async function crearTabla(db, nombreTabla) {
   nombre VARCHAR(100) NOT NULL,
   url_imagen VARCHAR(255) NOT NULL,
   precio DECIMAL(10,2) NOT NULL,
-  cantidad INT NOT NULL
+  cantidad INT NOT NULL CHECK(cantidad >=1),
+  activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+`;
+    const resultado = await db.execute(query);
+    console.log(`Tabla ${nombreTabla} creada`);
+  } catch {
+    console.log("No se pudo crear la tabla.");
+  }
+}
+
+export async function crearTablaVenta(db,nombreTabla) {
+  try {
+    const query = `CREATE TABLE IF NOT EXISTS ${nombreTabla} (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_usuario VARCHAR(100) NOT NULL,
+  fecha DATETIME NOT NULL,
+  precio_total DECIMAL(10,2) NOT NULL
 );
 `;
     const resultado = await db.execute(query);

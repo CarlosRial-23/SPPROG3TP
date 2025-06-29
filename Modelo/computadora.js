@@ -23,7 +23,15 @@ const computadora = sequelize.define("computadoras",
     cantidad: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate:{
+            min: 1
+        }
     },
+    activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+    }
 },
 {timestamps: false,
 freezeTableName: true //Evitar que me cambie el nombre

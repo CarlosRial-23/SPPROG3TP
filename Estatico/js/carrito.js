@@ -1,3 +1,5 @@
+const { getCarrito } = require("./productos");
+
 document.addEventListener("DOMContentLoaded", () => {
   const carritoContainer = document.getElementById("lista-carrito");
   const totalSpan = document.getElementById("total");
@@ -108,3 +110,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   actualizarVistaCarrito();
 });
+
+module.exports = {getCarrito};
