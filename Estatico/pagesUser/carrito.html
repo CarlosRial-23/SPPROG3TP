@@ -11,18 +11,32 @@
       integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../css/carrito.css"/>
+    <link rel="stylesheet" href="/css/general.css"/>
+
 </head>
 
 <body>
-    <!--  Encabezado del carrito -->
+    <main class="container">
+    
     <header>
-        <h1>Carrito de Compras</h1>
-        <a href="./productos.html" class="icono-carrito">⬅️ Volver</a> <!-- boton de regresar -->
+      <img src="/images/iconoEmpresa.png" alt="logo_tienda" class="logo-header">
+      <h1>TIENDA TECH</h1>
+      <h2>CARRITO DE COMPRAS</h2>
     </header>
 
+      <nav id="navbar-principal">
+      <ul class="nav-left">
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./productos.html">Productos</a></li>
+      </ul>
+        <ul class="nav-right">
+        <li> <a href="./productos.html" class="icono-volver">⬅️ Volver </a></li>
+      </ul>
+    </nav>
+
+
     <!-- Seccion principal del carrito -->
-    <section id="carrito" class="container mt-4">
+    <section id="carrito">
 
         <h2>Tu carrito</h2>
         <div id="lista-carrito">
@@ -31,7 +45,7 @@
 
         <!-- Seccion de resumen del carrito -->
         <div id="resumen-carrito">
-            <div id="cart-container" class="row mt-3"></div>
+            <div id="cart-container" class="d-flex flex-wrap gap-3 mt-3"></div>
             <h4 class="mt-4">Total: $<span id="total">0</span></h4>
         </div>
 
@@ -43,8 +57,7 @@
         <div>Lucas Amarilla</div>
       </div>
     </footer>
-
-
+  </main>
     <script src="../js/carrito.js"></script>
 </body>
 

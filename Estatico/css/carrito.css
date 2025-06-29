@@ -1,63 +1,155 @@
-/* --- Estilos básicos y reinicio de márgenes --- */
+/* --- Reset y configuración base --- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-:root{
-    --color-principal: #070707;
-    --color-secundario: #0f0f0f;
-    --color-secundario-claro: #181818;
-    --color-terciario: #DB202C;
-    --color-terciario-claro: #A33736;
-    --color-texto: #F2F2F2;
+:root {
+  --color-principal: #070707;
+  --color-fondo: #333;
+  --color-secundario: #0f0f0f;
+  --color-secundario-claro: #181818;
+  --color-terciario: #DB202C;
+  --color-terciario-claro: #A33736;
+  --color-texto: #F2F2F2;
 }
-
 
 body {
-    background-color: var(--color-principal);
-    font-family: Arial, sans-serif; /* Fuente principal */
-    padding: 20px; /* Espaciado interno */
+  background-color: var(--color-principal);
+  color: var(--color-texto);
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-header{
+/* --- Header general --- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-fondo);
+  padding: 10px 20px;
   color: var(--color-texto);
 }
 
-#carrito{
-  color: var(--color-texto)
+header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  text-align: center;
+  font-size: 24px;
 }
 
+.logo-header {
+  height: 100px;
+  background-color: transparent;
+}
+
+/* --- Ícono del carrito --- */
 .icono-carrito {
-    color: var(--color-texto); /* Color del icono */
-    font-size: 24px; /* Tamaño del icono */
-    text-decoration: none; /* Sin subrayado */
+  color: var(--color-texto);
+  font-size: 50px;
+  text-decoration: none;
 }
 
-/* Estilo para las cards del carrito */
+/* --- Navegación --- */
+#navbar,
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  background: #555;
+  padding: 10px;
+}
+
+#navbar {
+  justify-content: space-between;
+}
+
+nav ul {
+  gap: 1rem;
+}
+
+nav ul li {
+  margin-right: 15px;
+}
+
+nav ul li a {
+  color: var(--color-texto);
+  text-decoration: none;
+}
+
+/* --- Botones de categorías y productos --- */
+.category-btn {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.btn-add {
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* --- Secciones de categorías --- */
+.category-section {
+  display: none;
+}
+
+.category-section.active {
+  display: block;
+}
+
+/* --- Estilos de producto --- */
+.product-card {
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: scale(1.2);
+}
+
+.product-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* --- Carrito --- */
+#carrito {
+  color: var(--color-texto);
+}
+
+/* Tarjetas del carrito */
 #lista-carrito .card {
-  height: auto; /* Altura flexible */
-  min-height: 200px; /* Altura mínima */
-  overflow: visible; /* Asegura que todo el contenido sea visible */
+  height: auto;
+  min-height: 200px;
+  overflow: visible;
 }
 
-/* Estilo para el grupo de botones */
+/* Botones del carrito */
 #lista-carrito .btn-group {
   display: flex;
-  gap: 10px; /* Espacio entre botones */
+  gap: 10px;
   margin-top: 10px;
 }
 
-/* Estilo para los botones */
 #lista-carrito .btn {
-  padding: 0.25rem 0.5rem; /* Tamaño más compacto */
+  padding: 0.25rem 0.5rem;
   font-size: 0.8rem;
 }
 
-/* Ajusta la imagen */
+/* Imagen en carrito */
 #lista-carrito .card-img-top {
   max-height: 150px;
   object-fit: contain;
   padding: 10px;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  color: var(--color-texto);
+  font-size: 1.2rem;
 }

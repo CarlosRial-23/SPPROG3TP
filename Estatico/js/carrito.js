@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const precio = document.createElement("p");
       precio.className = "card-text fw-bold";
-      precio.textContent = `$ ${producto.precio.toFixed(2)} c/u`;
+      precio.textContent = `$ ${producto.precio} c/u`;
 
       const btnGroup = document.createElement("div");
       btnGroup.className = "btn-group mt-2";
