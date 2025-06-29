@@ -33,7 +33,7 @@ function crearTarjeta(producto) {
 
   const price = document.createElement("p");
   price.className = "card-text fw-bold";
-  price.textContent = `$ ${producto.precio.toFixed(2)}`;
+  price.textContent = `$ ${producto.precio}`;
 
   const btnGroup = document.createElement("div");
   btnGroup.className = "d-flex justify-content-between";
@@ -91,30 +91,32 @@ function crearTarjeta(producto) {
 }
 
 // Cargar productos al inicio desde JSON
-function cargarProductos() {
-    pcContainer.innerHTML = "";
+async function cargarProductos() {
+    
+  pcContainer.innerHTML = "";
     monitorContainer.innerHTML = "";
-    fetch("js/pcs.json")
-        .then((response) => response.json()) // Convierte la respuesta en JSON
-        .then((data) => {
-            data.pcs.forEach (elemento => {
-                const card = crearTarjeta(elemento);
-                pcContainer.appendChild(card);
-            })
-        
-    })
-    .catch((error) => console.error("Error al cargar el archivo JSON:", error));
+    try{
+      const promise = await fetch('/computadoras');
+      const computadoras = await promise.json();
+      computadoras.forEach(producto =>{
+             const card = crearTarjeta(producto);
+            pcContainer.appendChild(card);
+      })
 
-    fetch("js/monitores.json")
-        .then((response) => response.json()) // Convierte la respuesta en JSON
-        .then((data) => {
-            data.monitores.forEach (elemento => {
-                const card = crearTarjeta(elemento);
-                monitorContainer.appendChild(card);
-        })
-        
-    })
-    .catch((error) => console.error("Error al cargar el archivo JSON:", error));
+    } catch(error){
+      console.error("Error al cargar el producto: ", error)
+    }
+
+    try{
+      const promise = await fetch('/monitores');
+      const monitores = await promise.json();
+      monitores.forEach(producto =>{
+            const card = crearTarjeta(producto);
+            monitorContainer.appendChild(card);
+      })
+    } catch(error){
+      console.error("Error al cargar el producto: ", error)
+    }
 }
 
 function actualizarContadorCarrito() {
@@ -126,5 +128,7 @@ function actualizarContadorCarrito() {
       }
   }
 
-cargarProductos();
-actualizarContadorCarrito();
+(async () => {
+  await cargarProductos();
+  actualizarContadorCarrito();
+})();

@@ -28,7 +28,7 @@ servidor.get("/test/conexion", async (req,res)=>{
 
 
 //Traerme todos los productos
-servidor.get("/pcs", (req,res) => {
+servidor.get("/computadoras", (req,res) => {
     
 })
 

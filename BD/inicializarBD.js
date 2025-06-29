@@ -1,26 +1,24 @@
-import {dropearTabla} from "./funcionesInicializarBD.js";
+import { dropearTabla } from "./funcionesInicializarBD.js";
 import { crearTabla } from "./funcionesInicializarBD.js";
 import { cargarTabla } from "./funcionesInicializarBD.js";
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import mysql from 'mysql2/promise'; //Hago import y no require porque ya venia usando import en este modulo. //npm imysql2
+import dotenv from 'dotenv'; //me traigo los .env  - /*npm i dotenv
 dotenv.config();
-
 
 const monitores = "monitores";
 const computadoras = "computadoras";
-
 const datosComputadoras = [
-    ['PC oficina basico', '"../Estatico/images/pc_oficina.jpg"', 1200, 0],
-    ['PC gamer L4000', '"../Estatico/images/pc_gamerBasica.jpg"', 2400, 0],
-    ['PC Ultra R8500', '"../Estatico/images/pc_oficina.jpg"', 3800, 0],
+    ['PC oficina basico', '/images/pc_oficina.jpg', 1200, 0], //Ojo las comillas aca.
+    ['PC gamer L4000', '/images/pc_gamerBasica.jpg', 2400, 0],
+    ['PC Ultra R8500', '/images/pc_oficina.jpg', 3800, 0],
 ];
 const datosMonitores = [
-    ['Asus L4511 21"', '"../Estatico/images/monitor1.png"', 11000, 0],
-    ['MSI Z200 25"', '"../Estatico/images/monitor2.png"', 22000, 0],
-    ['LG Ultra Gear 27"', '"../Estatico/images/monitor3.png"', 38000, 0],
+    ['Asus L4511 21"', '/images/monitor1.png', 11000, 0],
+    ['MSI Z200 25"', '/images/monitor2.png', 22000, 0],
+    ['LG Ultra Gear 27"', '/images/monitor3.png', 38000, 0],
 ];
 
-async function inicializarBD() {
+export async function inicializarBD() {
 
   const db = await mysql.createConnection({
     host: process.env.DB_HOST,
@@ -43,6 +41,5 @@ async function inicializarBD() {
 
   await db.end();
 }
-
 
 inicializarBD();
