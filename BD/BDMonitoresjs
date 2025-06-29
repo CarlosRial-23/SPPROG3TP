@@ -1,0 +1,30 @@
+const express = require("express");
+const servidor =  express();
+const port = 3000;
+
+//Me traigo los productos de la BD, me los traigo con ORM o abriendo y cerrando una conexion a la BD.
+
+//Traerme todos los productos
+servidor.get("/pcs", (req,res) => {
+    
+})
+
+//Modificar producto
+servidor.put("/pcs", (req,res) => {
+
+})
+
+//Crear producto
+servidor.post("/pcs", (req,res) => {
+
+})
+
+//Borrar producto
+servidor.delete("/pcs", (req,res) => {
+
+})    
+
+
+servidor.listen(port, ()=>{
+    console.log(`App listenning on port ${port}`);
+})

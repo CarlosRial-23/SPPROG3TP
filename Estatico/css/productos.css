@@ -5,39 +5,39 @@ body {
 }
 
 header {
-    display: flex; /* Distribución flexible */
-    justify-content: space-between; /* Elementos separados */
-    align-items: center; /* Alineación vertical */
-    background: #333; /* Color de fondo */
-    color: white; /* Color de texto */
-    padding: 10px 20px; /* Espaciado interno */
+  display: flex; /* Distribución flexible */
+  justify-content: space-between; /* Elementos separados */
+  align-items: center; /* Alineación vertical */
+  background: #333; /* Color de fondo */
+  color: white; /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
 }
 
 header h1 {
-    font-size: 24px; /* Tamaño del título */
+  font-size: 24px; /* Tamaño del título */
 }
 
 .icono-carrito {
-    color: white; /* Color del icono */
-    font-size: 24px; /* Tamaño del icono */
-    text-decoration: none; /* Sin subrayado */
+  color: white; /* Color del icono */
+  font-size: 24px; /* Tamaño del icono */
+  text-decoration: none; /* Sin subrayado */
 }
 
 /* --- Navegación principal --- */
 nav ul {
-    list-style-type: none; /* Sin viñetas */
-    background: #555; /* Fondo oscuro */
-    padding: 10px; /* Espaciado interno */
+  list-style-type: none; /* Sin viñetas */
+  background: #555; /* Fondo oscuro */
+  padding: 10px; /* Espaciado interno */
 }
 
 nav ul li {
-    display: inline; /* Elementos en línea */
-    margin-right: 15px; /* Separación entre enlaces */
+  display: inline; /* Elementos en línea */
+  margin-right: 15px; /* Separación entre enlaces */
 }
 
 nav ul li a {
-    color: white; /* Color de texto */
-    text-decoration: none; /* Sin subrayado */
+  color: white; /* Color de texto */
+  text-decoration: none; /* Sin subrayado */
 }
 
 .category-btn {
@@ -73,3 +73,9 @@ nav ul li a {
 .category-section.active {
   display: block;
 }
+
+.logo-header {
+  height: 100px;
+  background-color: transparent;
+}
+
