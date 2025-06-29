@@ -2,7 +2,7 @@ const pcContainer = document.getElementById("pc");
 const monitorContainer = document.getElementById("monitor");
 
 // Obtener el carrito desde localStorage
-export function getCarrito() {
+function getCarrito() {
   return JSON.parse(localStorage.getItem("carrito")) || [];
 }
 

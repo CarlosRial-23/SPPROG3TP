@@ -20,7 +20,8 @@ app.use(express.json());
 //Ruta para obtener las computadoras.
 app.get("/computadoras", async (req, res) => {
   try {
-    const computadoras = await computadora.findAll();
+    const computadoras = await computadora.findAll({where: {activo: true}});
+    console.log(computadoras)
     res.status(200).json(computadoras);
   } catch (e) {
     res.status(500).json({ e: "Error en la consulta" });
@@ -30,7 +31,8 @@ app.get("/computadoras", async (req, res) => {
 //Ruta para obtener los monitores. 
 app.get("/monitores", async (req, res) => {
   try {
-    const monitores = await monitor.findAll();
+    const monitores = await monitor.findAll({where: {activo: true}});
+    console.log(monitores)
     res.status(200).json(monitores);
   } catch (e) {
     res.status(500).json({ e: "Error en la consulta" });

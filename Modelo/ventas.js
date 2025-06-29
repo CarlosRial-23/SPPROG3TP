@@ -1,4 +1,4 @@
-const {sequelize} = require ("../Modelo/dbSequelize");
+const {sequelize} = require ("./dbSequelize");
 const {DataTypes} = require ("sequelize");
 
 const venta = sequelize.define("ventas", 

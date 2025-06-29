@@ -19,18 +19,24 @@ class Ticket{
     view = true;
 }
 
-async function downloadTicketPdf(req,res) {
+async function getTicket(req,res) {
+    const {carrito, nombreUsuario} = req.query; //es GET
+
+    if(!carrito){
+        return res.status(400).send("El carrito esta vacio");
+    }
+
     let detalleProducto = [];
     let total = 0;
     const newTicket = new Ticket();
     newTicket.id = Date.now();
-    newTicket.fecha = new Date.toLocaleString();
-    newTicket.nombreCliente = localStorage.getItem("nombreUsuario");
+    newTicket.fecha = new Date().toLocaleString();
+    newTicket.nombreCliente = nombreUsuario
 
-    const productos = JSON.parse(getCarrito());
+    const productos = JSON.parse(carrito);
     productos.forEach(element => {
         const precioUnitario = parseFloat(element.precio);
-        const subtotal = precioUnitario * element.precio;
+        const subtotal = precioUnitario * element.cantidad;
         total += subtotal;
 
         detalleProducto.push({
@@ -44,6 +50,11 @@ async function downloadTicketPdf(req,res) {
     newTicket.detalleProducto = detalleProducto;
 
     let html = await ejs.renderFile(path.join(__dirname,"./", "pagesUser", "ticket.ejs"), {ticket : newTicket});
+    res.status(200).send(html);
+}
+
+async function downloadTicketPdf(req,res) {
+    //Aca necesitaria sacar le ticket de algun lado.     
 
     const browser = await puppeteer.launch({
         headless: true,
@@ -67,16 +78,15 @@ async function downloadTicketPdf(req,res) {
 
     res.set({
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename=${req.params.id}.pdf` 
+        "Content-Disposition": `attachment; filename=${newTicket.id}.pdf` 
     });
 
     res.status(200).send(pdfBuffer);
 }
 
-//Indexo a ruta
-app.get("/ticket/download", downloadTicketPdf);
 
-const port = 3000;
-app.listen(port, () =>{
-    console.log(`Example app listening on port ${port}`);
-})
+app.get("/ticket/generar", getTicket);
+app.post("/ticket/generar", getTicket);
+//Indexo a ruta
+app.get("/ticket/", getTicket);
+
