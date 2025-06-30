@@ -26,11 +26,11 @@
 
       <nav id="navbar-principal">
       <ul class="nav-left">
-        <li><a href="./index.html">Inicio</a></li>
-        <li><a href="./productos.html">Productos</a></li>
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/productos.html">Productos</a></li>
       </ul>
         <ul class="nav-right">
-        <li> <a href="./productos.html" class="icono-volver">⬅️ Volver </a></li>
+        <li> <a href="/productos.html" class="icono-volver">⬅️ Volver </a></li>
       </ul>
     </nav>
 
@@ -38,8 +38,8 @@
     <h3>Ticket</h3>
     <p>Ticket ID: <%= ticket.id %></p>
     <p>Fecha:<%= ticket.fecha %></p>
-    <p>Nombre de Cliente:<%= ticket.nombre %></p>
-    <p>Producto:<%= ticket.producto %></p>
+    <p>Nombre de Cliente:<%= ticket.nombreCliente %></p>
+    <p>Productos:<%= ticket.detalleProducto %></p>
     <p>Precio Total:<%= ticket.total %></p>
     <% if (ticket.view) { %> 
         <a href="http://localhost:3000/ticket/download/<%= ticket.id %>" target="_blank">Descargar ticket</a>

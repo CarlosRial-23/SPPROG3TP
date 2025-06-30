@@ -39,6 +39,11 @@ app.get("/monitores", async (req, res) => {
   }
 });
 
+//para ver el carrito
+const {getTicket} = require("./Estatico/js/ticket.js")
+app.get("/ticket/generar", getTicket);
+
+
 //Sincronizo la BD.
 sequelize
 .sync()

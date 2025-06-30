@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const puppeteer = require("puppeteer"); //npm install puppeteer
-const {getCarrito} = require("./carrito.js")
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,6 +26,7 @@ async function getTicket(req,res) {
         return res.status(400).send("El carrito esta vacio");
     }
 
+    const productos = JSON.parse(carrito);
     let detalleProducto = [];
     let total = 0;
     const newTicket = new Ticket();
@@ -33,7 +34,6 @@ async function getTicket(req,res) {
     newTicket.fecha = new Date().toLocaleString();
     newTicket.nombreCliente = nombreUsuario
 
-    const productos = JSON.parse(carrito);
     productos.forEach(element => {
         const precioUnitario = parseFloat(element.precio);
         const subtotal = precioUnitario * element.cantidad;
@@ -49,44 +49,11 @@ async function getTicket(req,res) {
     newTicket.total = total;
     newTicket.detalleProducto = detalleProducto;
 
-    let html = await ejs.renderFile(path.join(__dirname,"./", "pagesUser", "ticket.ejs"), {ticket : newTicket});
+    const rutaEJS = path.join(__dirname, "..", "pagesUser", "ticket.ejs");
+    console.log("Ruta EJS RESUELTA:", rutaEJS)
+    let html = await ejs.renderFile(path.join(__dirname,"..", "pagesUser", "ticket.ejs"), {ticket : newTicket});
     res.status(200).send(html);
 }
 
-async function downloadTicketPdf(req,res) {
-    //Aca necesitaria sacar le ticket de algun lado.     
-
-    const browser = await puppeteer.launch({
-        headless: true,
-    })
-
-    const page = await browser.newPage()
-    await page.setContent(html);
-    
-    const pdfBuffer = await page.pdf({ 
-    format: "A4", 
-    printBackground: true, 
-    margin: {
-        top: "20px",
-        right: "20px",
-        left: "20px",
-        bottom: "20px"
-        },
-    })
-
-    await browser.close();
-
-    res.set({
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename=${newTicket.id}.pdf` 
-    });
-
-    res.status(200).send(pdfBuffer);
-}
-
-
-app.get("/ticket/generar", getTicket);
-app.post("/ticket/generar", getTicket);
-//Indexo a ruta
-app.get("/ticket/", getTicket);
+module.exports = {getTicket};
 

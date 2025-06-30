@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const carritoContainer = document.getElementById("lista-carrito");
   const totalSpan = document.getElementById("total");
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cantidad.textContent = `Cantidad: ${producto.cantidad}`;
 
       const precio = document.createElement("p");
-      precio.className = "card-text fw-bold";
+      precio.className = "card-text fw-bold precio-negro";
       precio.textContent = `$ ${producto.precio} c/u`;
 
       const btnGroup = document.createElement("div");
@@ -99,6 +98,27 @@ document.addEventListener("DOMContentLoaded", () => {
       contador.textContent = totalItems;
     }
   }
+
+
+  function finalizarCompra(){
+    const carrito = localStorage.getItem("carrito");
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+
+    if(!carrito) {
+      alert("Debe cargar productos en el carrito primero");
+      return;
+    }
+
+    //Serializa lo parametros de consulta en una URL de forma nativa.
+    const params = new URLSearchParams({
+      carrito,
+      nombreUsuario,
+    });
+
+    window.open(`/ticket/generar?${params.toString()}`, "_blank");
+  }
+
+  document.getElementById("finalizar-compra").addEventListener("click", finalizarCompra);
 
   // Simula la compra
   const realizarCompra = () => {
