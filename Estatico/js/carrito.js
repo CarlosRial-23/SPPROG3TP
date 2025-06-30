@@ -119,8 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
       carrito,
       nombreUsuario,
     });
+    localStorage.removeItem("carrito");
 
-    window.open(`/ticket/generar?${params.toString()}`, "_blank");
+    window.location.href = `/ticket/generar?${params.toString()}`;
   }
 
   document.getElementById("finalizar-compra").addEventListener("click", finalizarCompra);
@@ -131,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem("carrito");
     window.location.href = "index.html";
   };
-
   actualizarVistaCarrito();
-});
+});  
+
 

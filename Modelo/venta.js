@@ -12,8 +12,8 @@ const venta = sequelize.define("ventas",
         type: DataTypes.STRING(100),
         allowNull: false,
     },
-    fecha_compra:{
-        type: DataTypes.INTEGER,
+    fecha:{
+        type: DataTypes.DATE,
         allowNull: false,
     },    
     precio_total: {

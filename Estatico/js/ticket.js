@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const puppeteer = require("puppeteer"); //npm install puppeteer
+const venta = require("../../Modelo/venta.js")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,6 +21,19 @@ class Ticket {
   view = true;
 }
 
+async function guardarTicket(nombreUsuario, fecha, total) {
+    try{
+        const ventas = await venta.create({
+            nombre_usuario: nombreUsuario,
+            fecha: fecha,
+            precio_total: total,
+        })
+    } catch(error){
+        console.error("Error", error);
+    }
+    
+}
+
 async function getTicket(req, res) {
   const { carrito, nombreUsuario } = req.query; //es GET
 
@@ -30,6 +44,7 @@ async function getTicket(req, res) {
   const productos = JSON.parse(carrito);
   let detalleProducto = [];
   let total = 0;
+  const fechaTicket = new Date()
   const newTicket = new Ticket();
   newTicket.id = Date.now();
   newTicket.fecha = new Date().toLocaleString();
@@ -49,6 +64,9 @@ async function getTicket(req, res) {
   });
   newTicket.total = total;
   newTicket.detalleProducto = detalleProducto;
+  
+  //guardo en la bd
+  await guardarTicket(newTicket.nombreCliente, fechaTicket, newTicket.total);
 
   tickets[newTicket.id] = newTicket;
 
@@ -84,6 +102,7 @@ async function descargarTicket(ticket) {
   await browser.close();
   return pdfBuffer;
 }
+
 
 //Una vez hecho esto se tiene que persistir en la BD para ver las ventas realizadas.
 module.exports = {tickets, getTicket, descargarTicket};
