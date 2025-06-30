@@ -16,7 +16,7 @@
 }
 
 body {
-  background-color: #000000f5;
+  background-color: var(--color-principal);
   color: var(--color-texto); /* Color de texto */
   padding: 10px 20px; /* Espaciado interno */
 }

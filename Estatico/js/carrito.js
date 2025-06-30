@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem("carrito");
     window.location.href = "index.html";
   };
+  
   actualizarVistaCarrito();
 });  
-
 

@@ -132,3 +132,4 @@ function actualizarContadorCarrito() {
   await cargarProductos();
   actualizarContadorCarrito();
 })();
+
