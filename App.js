@@ -8,6 +8,7 @@ const { sequelize } = require("./Modelo/dbSequelize.js");
 //requiero los modelos
 const computadora = require("./Modelo/computadora.js");
 const monitor = require("./Modelo/monitor.js");
+const {tickets, getTicket, descargarTicket} = require("./Estatico/js/ticket.js")
 
 app.use(express.static('Estatico'));
 app.use('/', express.static('Estatico/pagesUser'));
@@ -39,10 +40,29 @@ app.get("/monitores", async (req, res) => {
   }
 });
 
-//para ver el carrito
-const {getTicket} = require("./Estatico/js/ticket.js")
+//Para ver el ticket
 app.get("/ticket/generar", getTicket);
 
+app.get("/ticket/download/:id", async (req, res) => {
+  const ticketId = req.params.id;
+  const ticket = tickets[ticketId];
+
+  if (!ticket) {
+    return res.status(404).send("Ticket no encontrado");
+  }
+
+  try {
+    const pdfBuffer = await descargarTicket(ticket);
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename=ticket_${ticket.id}.pdf`,
+    });
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.error("Error generando PDF:", error);
+    res.status(500).send("Error generando PDF");
+  }
+});
 
 //Sincronizo la BD.
 sequelize
