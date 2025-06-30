@@ -30,7 +30,7 @@
         <li><a href="/productos.html">Productos</a></li>
       </ul>
         <ul class="nav-right">
-        <li> <a href="/productos.html" class="icono-volver">⬅️ Volver </a></li>
+        <li> <a href="/productos.html" class="icono-nueva-compra">⬅️ Nueva Compra </a></li>
       </ul>
     </nav>
 
@@ -39,8 +39,20 @@
     <p>Ticket ID: <%= ticket.id %></p>
     <p>Fecha:<%= ticket.fecha %></p>
     <p>Nombre de Cliente:<%= ticket.nombreCliente %></p>
-    <p>Productos:<%= ticket.detalleProducto %></p>
+    <p>Productos:</p>
+    <ul>
+      <% ticket.detalleProducto.forEach(producto => { %>
+       <li>
+        <%= producto.nombre %> --
+        Cantidad: <%= producto.cantidad %> --
+        Precio Unitario: <%= producto.precio %> --
+        Subtotal: <%= producto.subtotal %>
+       </li>
+      <% }) %>
+    </ul>
     <p>Precio Total:<%= ticket.total %></p>
+    
+    <!--Generar la ruta para descargar el ticket-->
     <% if (ticket.view) { %> 
         <a href="http://localhost:3000/ticket/download/<%= ticket.id %>" target="_blank">Descargar ticket</a>
     <% } %>

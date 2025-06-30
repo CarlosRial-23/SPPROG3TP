@@ -55,5 +55,9 @@ async function getTicket(req,res) {
     res.status(200).send(html);
 }
 
+
+//Una vez hecho esto se tiene que persistir en la BD para ver las ventas realizadas. 
+
+
 module.exports = {getTicket};
 

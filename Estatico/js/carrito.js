@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     carrito.forEach((producto, indice) => {
       const col = document.createElement("div");
-      col.className = "col-md-4 mb-3";
+      col.className = "col-12 col-sm-6 col-md-4 mb-3";
 
       const card = document.createElement("div");
       card.className = "card h-100";
@@ -109,6 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    //modal
+    const confirmado = confirm("¿Deseás finalizar la compra?");
+    if (!confirmado) {
+      return; // Si el usuario cancela, no sigue
+    }
     //Serializa lo parametros de consulta en una URL de forma nativa.
     const params = new URLSearchParams({
       carrito,
