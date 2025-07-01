@@ -17,7 +17,7 @@
   <main class="container">
     <header>
       <img src="/images/iconoEmpresa.png" alt="logo_tienda" class="logo-header">
-      <h1>DASHBOARD PRODUCTOS</h1>
+      <h1>INFORMACION VENTAS</h1>
       <h2>ADMIN</h2>
     </header>
     
@@ -29,40 +29,27 @@
       </nav>
 
       <!--NECESITO UNA TABLA PARA CARGAR TODOS LOS DATOS. -->
-      <caption>Tabla Monitores</caption><br>
-      <table id="tablaMonitores">
+      <caption>Tabla Ventas</caption><br>
+      <table id="tablaVentas">
         <thead>
           <tr>
-            <th id="th_id_monitor" column="ID">ID</th>
-            <th id="th_producto" column="Producto">Nombre Producto</th>
-            <th id="th_imagen" column="Imagen">Imagen</th>
-            <th id="th_precio" column="Precio">Precio</th>
-            <th id="th_cantidad" column="Cantidad">Cantidad</th>
-            <th id="th_activo" column="Activo">Activo</th>
-            <th id="th_acciones" column="Acciones">Acciones</th>
+            <th id="th_id" column="ID">ID Registro</th>
+            <th id="th_id_venta" column="idVenta">ID Venta</th>
+            <th id="th_fecha_venta" column="fechaVenta">Fecha Venta</th>
+            <th id="th_tipo_producto" column="tipoProducto">Tipo Producto</th>
+            <th id="th_nombre_producto" column="nombreProducto">Nombre Producto</th>
+            <th id="th_imagen_producto" column="imagen">Imagen</th>
+            <th id="th_precio_unitario" column="precioUnitario">Precio Unitario</th>
+            <th id="th_cantidad" column="cantidad">Cantidad</th>
+            <th id="th_subtotal" column="Subtotal">Subtotal Venta</th>
+            <th id="th_total" column="Total">Total Venta</th>
+
           </tr>
         </thead>
-        <tbody id="t_body_monitores">
+        <tbody id="t_body_ventas">
         </tbody>
       </table><br>
 
-
-      <caption>Tabla Computadoras</caption><br>
-     <table id="tablaComputadoras">
-        <thead>
-          <tr>
-            <th id="th_id_computadora" column="ID">ID</th>
-            <th id="th_producto" column="Producto">Producto</th>
-            <th id="th_imagen" column="Imagen">Imagen</th>
-            <th id="th_precio" column="Precio">Precio</th>
-            <th id="th_cantidad" column="Cantidad">Cantidad</th>
-            <th id="th_activo" column="Activo">Activo</th>
-            <th id="th_acciones" column="Acciones">Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="t_body_computadoras">
-        </tbody>
-      </table>
 
 
       <footer>
@@ -74,7 +61,7 @@
       </footer>
 
   </main>
-  <script src="/js/jsAdmin/dahsboard.js"></script> <!--Cambiarlo luego al ejecutar la ruta-->
+  <script src="/js/jsAdmin/informacionVentas.js"></script> <!--Cambiarlo luego al ejecutar la ruta-->
 
 </body>
 

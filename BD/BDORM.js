@@ -27,11 +27,6 @@ servidor.get("/test/conexion", async (req,res)=>{
 })
 
 
-//Traerme todos los productos
-servidor.get("/computadoras", (req,res) => {
-    
-})
-
 //Modificar producto
 servidor.put("/pcs", (req,res) => {
 

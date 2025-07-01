@@ -22,12 +22,32 @@ class Ticket {
 }
 
 async function guardarTicket(nombreUsuario, fecha, total) {
-    try{
-        const ventas = await venta.create({
-            nombre_usuario: nombreUsuario,
-            fecha: fecha,
-            precio_total: total,
-        })
+      try {
+    // Crear la venta
+    const nuevaVenta = await venta.create({
+      nombre_usuario: nombreUsuario,
+      fecha: fecha,
+      precio_total: total,
+    });
+
+    // Crear los registros en ventas_productos para cada producto
+    for (const prod of productos) {
+      const dataVentaProducto = {
+        id_venta: nuevaVenta.id,
+        cantidad: prod.cantidad,
+        tipo_producto: prod.tipo_producto,
+      };
+
+      // Según el tipo, asociar el id correspondiente
+      if (prod.tipo_producto === "computadora") {
+        dataVentaProducto.id_computadora = prod.id;
+      } else if (prod.tipo_producto === "monitor") {
+        dataVentaProducto.id_monitor = prod.id;
+      }
+
+      await ventasProductos.create(dataVentaProducto);
+    }
+
     } catch(error){
         console.error("Error", error);
     }

@@ -30,11 +30,23 @@ header {
   padding: 10px 20px; /* Espaciado interno */
 }
 
-header h1, h2 {
+header h1,
+h2 {
   font-size: 24px; /* Tamaño del título */
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
 
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
 
 .category-btn {
   font-size: 1.2rem;
@@ -157,13 +169,12 @@ header h1, h2 {
   padding: 10px;
 }
 
-
 @media (max-width: 992px) {
   header h1,
   header h2 {
     font-size: 20px;
   }
-  
+
   #lista-carrito .card {
     flex: 1 1 45%;
   }

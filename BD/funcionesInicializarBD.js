@@ -51,3 +51,4 @@ export async function cargarTabla(db,nombreTabla,arrayDatos) {
     console.log("No se cargaron los datos");
   }
 }
+
