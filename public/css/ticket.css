@@ -1,0 +1,102 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #000000f5;
+  color: white; /* Color de texto */
+  min-height: 100vh;
+  padding: 10px 20px; /* Espaciado interno */
+}
+
+header {
+    display: flex; /* Distribución flexible */
+    
+    justify-content: center;
+    align-items: center; /* Alineación vertical */
+    background: #333; /* Color de fondo */
+    color: white; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    
+}
+
+header h1 {
+    font-size: 34px; /* Tamaño del título */
+}
+
+nav ul {
+    list-style-type: none; /* Sin viñetas */
+    background: #555; /* Fondo oscuro */
+    padding: 10px; /* Espaciado interno */
+}
+
+nav ul li {
+    display: inline; /* Elementos en línea */
+    margin-right: 15px; /* Separación entre enlaces */
+}
+
+nav ul li a {
+    color: white; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.category-btn {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  /*Para alinear verticalmente los elementos*/
+}
+
+.nav-icon{
+  width: 90px;       /* Ajusta según el tamaño de tu icono */
+  height: 90px;      /* Ajusta según el tamaño de tu icono */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  vertical-align: middle; /* Alinea verticalmente con el texto */
+}
+
+.contenedor {
+  display: flex;
+  justify-content: space-between; /* Distribuye los elementos */
+  align-items: center; /* Alinea verticalmente */
+  width: 100%;
+}
+.texto{
+  font-size: 28px;             
+  font-family: 'Arial', serif;   
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  width: 100%; 
+}
+
+
+footer {
+  margin-top: auto;
+  background-color: rgba(60, 60, 60, 0.7); 
+  padding: 10px;
+  color: antiquewhite;
+  width: 100%;
+}
+
+p{
+  font-size: 20px;
+  font-family: 'Arial', serif;   
+  display: flex;
+  gap: 80px;
+}
+
+.total{
+  font-size: 27px;
+  font-family: 'Arial', serif;   
+  display: flex;
+  gap: 80px;
+}
+

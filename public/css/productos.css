@@ -1,0 +1,112 @@
+body {
+  background-color: #000000f5;
+  color: white; /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+  max-height: 95vh;
+}
+
+header {
+    display: flex; /* Distribución flexible */
+    
+    justify-content: center;
+    align-items: center; /* Alineación vertical */
+    background: #333; /* Color de fondo */
+    color: white; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    
+}
+
+header h1 {
+    font-size: 34px; /* Tamaño del título */
+}
+
+.icono-carrito {
+    color: white; /* Color del icono */
+    font-size: 24px; /* Tamaño del icono */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* --- Navegación principal --- */
+nav ul {
+    list-style-type: none; /* Sin viñetas */
+    background: #555; /* Fondo oscuro */
+    padding: 10px; /* Espaciado interno */
+}
+
+nav ul li {
+    display: inline; /* Elementos en línea */
+    margin-right: 15px; /* Separación entre enlaces */
+}
+
+nav ul li a {
+    color: white; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.category-btn {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.product-card {
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  /*transform: scale(1.03);*/
+  transform: scale(1.1);
+}
+
+.product-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.btn-add {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.category-section {
+  display: none;
+}
+
+.category-section.active {
+  display: block;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;  /*Para alinear verticalmente los elementos*/
+}
+
+.nav-icon{
+  width: 90px;       /* Ajusta según el tamaño de tu icono */
+  height: 90px;      /* Ajusta según el tamaño de tu icono */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  vertical-align: middle; /* Alinea verticalmente con el texto */
+}
+
+.contenedor {
+  display: flex;
+  justify-content: space-between; /* Distribuye los elementos */
+  align-items: center; /* Alinea verticalmente */
+  width: 100%;
+}
+.texto{
+  font-size: 28px;             
+  font-family: 'Arial', serif;   
+  display: flex;
+  gap: 80px;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: #8a9ad4; 
+  padding: 5px 0;
+}

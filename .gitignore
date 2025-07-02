@@ -1,0 +1,9 @@
+# Carpeta de módulos de Node.js
+node_modules/
+
+# Archivo de variables de entorno
+.env
+
+# Configuraciones de editores
+.vscode/
+

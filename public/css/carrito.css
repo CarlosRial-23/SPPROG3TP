@@ -1,0 +1,75 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+header {
+    display: flex; /* Distribución flexible */
+    
+    justify-content: center;
+    align-items: center; /* Alineación vertical */
+    background: #6f6f6fc6; /* Color de fondo */
+    color: white; /* Color de texto */
+    padding: 10px 20px; /* Espaciado interno */
+    
+}
+
+header h1 {
+    font-size: 34px; /* Tamaño del título */
+}
+.nav-icon{
+  width: 90px;       /* Ajusta según el tamaño de tu icono */
+  height: 90px;      /* Ajusta según el tamaño de tu icono */
+  margin-right: 8px; /* Espacio entre el icono y el texto */
+  vertical-align: middle; /* Alinea verticalmente con el texto */
+}
+
+.contenedor {
+    flex: 1; /* Esto hace que el contenedor ocupe el espacio restante */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos */
+    align-items: center; /* Alinea verticalmente */
+    width: 100%;
+}
+
+/* --- Navegación principal --- */
+nav ul {
+    list-style-type: none; /* Sin viñetas */
+    background: #555; /* Fondo oscuro */
+    padding: 10px; /* Espaciado interno */
+}
+
+nav ul li {
+    display: inline; /* Elementos en línea */
+    margin-right: 15px; /* Separación entre enlaces */
+}
+
+nav ul li a {
+    color: white; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+}
+.texto{
+    font-size: 28px;             
+    font-family: 'Arial', serif;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;/* espacio entre los elementos */
+    flex-grow: 1;/* ocupa el espacio para centrar bien */
+}
+ 
+footer {
+    margin-top: auto;
+    padding: 10px;
+    color: antiquewhite;
+    width: 100%;
+    background: #8a9ad4; 
+    padding: 10px 0;
+}
+
+footer nav a{
+    text-decoration: none;
+}
