@@ -32,7 +32,7 @@
     <div>
       <p>Gracias por su compra <%= ticket.nombre %></p>
       <% ticket.productos.forEach(e => { %>
-        <p>  Producto: <%= e.nombre %>  |  Precio Unitario: $<%= e.precio.toFixed(2) %>  |  Cantidad: <%= e.cantidad %>  |  Sub-Total: $<%= e.cantidad * e.precio %></p>
+        <p>  Producto: <%= e.nombre %>  |  Precio Unitario: $<%= e.precio.toFixed(2) %>  |  Cantidad: <%= e.cantidad %>  |  Sub-Total: $<%= (e.cantidad * e.precio).toFixed(2) %></p>
         <% }); 
         
       %>

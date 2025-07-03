@@ -1,96 +1,259 @@
-const ejs = require("ejs"); //npm install ejs.
+const ejs = require("ejs");
 const fs = require('fs');
 const path = require("path");
-const puppeteer = require("puppeteer"); //npm install puppeteer
+const puppeteer = require("puppeteer");
 const express = require('express');
 const app = express();
-
-app.use(express.urlencoded({ extended: true })); //const datos = req.body;
-app.use(express.json()); //const datos = req.body;
-app.use(express.static(path.join(__dirname, 'public')));
-
-class Ticket {
-    id = "";
-    fecha = "";
-    nombre = "";
-    productos = [];
-    total = 0;
-    view = true;
-}
-
-async function getTicket(req, res) {
-    const newTicket = new Ticket();
-    newTicket.id = req.params.id;
-    newTicket.fecha = new Date().toLocaleDateString();
-    newTicket.nombre = "Charly Prueba"
-    newTicket.productos = [{"nombre":"prod1","precio":100,"cantidad":1},{"nombre":"prod2","precio":200,"cantidad":2}];
-    newTicket.total = newTicket.productos.reduce((sum, e) => sum + (e.precio * e.cantidad), 0);
-    newTicket.view = true;
-
-    let html = await ejs.renderFile(
-        path.join(__dirname, "public", "vistas", "ticket.ejs"),
-        { ticket: newTicket }
-    );
-    res.status(200).send(html);
-}
-
-async function downloadTicket(req, res) {
-    const newTicket = new Ticket();
-    newTicket.id = req.params.id;
-    newTicket.fecha = new Date().toLocaleDateString();
-    newTicket.nombre = "Charly Prueba"
-    newTicket.productos = [{"nombre":"prod1","precio":100,"cantidad":1},{"nombre":"prod2","precio":200,"cantidad":2}];
-    newTicket.total = newTicket.productos.reduce((sum, e) => sum + (e.precio * e.cantidad), 0);
-    newTicket.view = false;
-  
-    const cssPath = path.join(__dirname, 'public', 'css', 'ticket.css');
-    const css = fs.readFileSync(cssPath, 'utf8');
-   
-
-    let html = await ejs.renderFile(
-      path.join(__dirname, "public", "vistas", "ticket.ejs"),
-      { ticket: newTicket }
-    );
-  
-    html = html.replace('</head>', `<style>${css}</style></head>`);
-
-    const browser = await puppeteer.launch({
-      headless: true,
-    });
-  
-    const page = await browser.newPage();
-  
-    await page.setContent(html, {waitUntil: 'networkidle0' });
-  
-    const pdfBuffer = await page.pdf({
-      format: "A4",
-      printBackground: true,
-      margin: {
-        top: "5px",
-        right: "5px",
-        bottom: "5px",
-        left: "5px",
-      },
-      
-    });
-  
-  await browser.close();
-
-  res.set({
-    "Content-Type": "application/pdf",
-    "Content-Disposition": `attachment; filename=${req.params.id}.pdf`,
-  });
-  res.status(200).send(pdfBuffer);
-}
-app.use(express.static('public'));
-app.use('/', express.static('public/pages'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/productos',express.static(path.join(__dirname, 'public', 'pages','productos.html')));
-app.use('/carrito',express.static(path.join(__dirname, 'public','pages','carrito.html')));
-app.get("/ticket/:id", getTicket);
-app.get("/ticket/download/:id", downloadTicket);
-
 const port = 3000;
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+
+const { sequelize } = require("./ORM/database/index.js");
+const { Producto } = require("./ORM/model/producto.js");
+const { Venta } = require("./ORM/model/venta.js");
+const { DetalleVenta } = require("./ORM/model/detalleVenta.js"); // Añadir
+const { Ticket } = require("./ORM/model/ticket.js");
+
+// Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+//Asociacion Inversa
+function setupAssociations() {
+    Venta.hasMany(DetalleVenta, {
+        foreignKey: 'venta_id',
+        as: 'detalles'
+    });
+}
+
+// Rutas de productos
+const productoRoutes = express.Router();
+
+productoRoutes.get("/", async (req, res) => {
+    try {
+        const Prod = await Producto.findAll();
+        res.status(200).json(Prod);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
 });
+
+productoRoutes.get("/:id", async (req, res) => {
+    try {
+        const Prod = await Producto.findByPk(req.params.id);
+        res.status(200).json(Prod);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
+productoRoutes.post("/", async (req, res) => {
+    try {
+        const newProducto = await Producto.create(req.body);
+        res.status(201).json(newProducto);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
+// Rutas de ventas
+const ventaRoutes = express.Router();
+
+ventaRoutes.get("/", async (req, res) => {
+    try {
+        const venta = await Venta.findAll();
+        res.status(200).json(venta);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
+ventaRoutes.get("/:id", async (req, res) => {
+    try {
+        const venta = await Venta.findByPk(req.params.id);
+        res.status(200).json(venta);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
+ventaRoutes.post("/", async (req, res) => {
+    try {
+        const newVenta = await Venta.create(req.body);
+        res.status(201).json(newVenta);
+    } catch (error) {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
+ventaRoutes.post("/exitosa", async (req, res) => {
+    const t = await sequelize.transaction();
+    
+    try {
+        const { usuario, productos, total } = req.body;
+        
+        const nuevaVenta = await Venta.create({
+            usuario,
+            fecha: new Date(),
+            total
+        }, { transaction: t });
+
+        const detalles = productos.map(p => ({
+            venta_id: nuevaVenta.id,
+            producto_id: p.id,
+            cantidad: p.cantidad,
+            precio_unitario: p.precio,
+            subtotal: p.subtotal
+        }));
+
+        await DetalleVenta.bulkCreate(detalles, { transaction: t });
+        
+        await t.commit();
+        res.status(201).json({ 
+            message: "Venta registrada", 
+            id: nuevaVenta.id,
+            total: nuevaVenta.total
+        });
+        
+    } catch (error) {
+        await t.rollback();
+        res.status(500).json({ error: "Error al procesar venta: " + error.message });
+    }
+});
+
+// Rutas de tickets
+const ticketRoutes = express.Router();
+
+// Montar rutas
+app.use("/producto", productoRoutes);
+app.use("/ventas", ventaRoutes);
+app.use("/ticket", ticketRoutes);
+
+// Rutas estáticas
+app.use('/', express.static('public/pages'));
+app.use('/productos', express.static(path.join(__dirname, 'public', 'pages','productos.html')));
+app.use('/carrito', express.static(path.join(__dirname, 'public','pages','carrito.html')));
+
+// Funciones de tickets
+
+ticketRoutes.get("/:id", async (req, res) => {
+  try {
+    const ventaId = req.params.id;
+    const venta = await Venta.findByPk(ventaId, {
+      include: [{
+        model: DetalleVenta,
+        as: 'detalles',
+        include: [{
+          model: Producto,
+          as: 'producto'
+        }]
+      }]
+    });
+    
+    if (!venta) {
+      return res.status(404).send('Venta no encontrada');
+    }
+
+    const ticket = {
+      id: venta.id,
+      fecha: venta.fecha.toISOString().split('T')[0],
+      nombre: venta.usuario,
+      productos: venta.detalles.map(d => ({
+        nombre: d.producto.nombre,
+        precio: d.precio_unitario,
+        cantidad: d.cantidad
+      })),
+      total: venta.total,
+      view: true
+    };
+
+    const html = await ejs.renderFile(
+      path.join(__dirname, "public", "vistas", "ticket.ejs"),
+      { ticket }
+    );
+    
+    res.status(200).send(html);
+  } catch (error) {
+    res.status(500).send('Error al generar ticket: ' + error.message);
+  }
+});
+
+ticketRoutes.get("/download/:id", async (req, res) => {
+    try {
+        const ventaId = req.params.id;
+        const venta = await Venta.findByPk(ventaId, {
+            include: [{
+                model: DetalleVenta,
+                as: 'detalles',
+                include: [{
+                    model: Producto,
+                    as: 'producto'
+                }]
+            }]
+        });
+        
+        if (!venta) {
+            return res.status(404).send('Venta no encontrada');
+        }
+
+        const ticket = {
+            id: venta.id,
+            fecha: venta.fecha.toLocaleDateString(),
+            nombre: venta.usuario,
+            productos: venta.detalles.map(d => ({
+                nombre: d.producto.nombre,
+                precio: d.precio_unitario,
+                cantidad: d.cantidad
+            })),
+            total: venta.total,
+            view: false
+        };
+
+        const cssPath = path.join(__dirname, 'public', 'css', 'ticket.css');
+        const css = fs.readFileSync(cssPath, 'utf8');
+
+        let html = await ejs.renderFile(
+            path.join(__dirname, "public", "vistas", "ticket.ejs"),
+            { ticket }
+        );
+
+        const styleTag = `<style>${css}</style>`;
+        html = html.replace('</head>', `${styleTag}</head>`);
+
+        const browser = await puppeteer.launch({ headless: "new" });
+        const page = await browser.newPage();
+        await page.setContent(html, { waitUntil: 'networkidle0' });
+
+        const pdfBuffer = await page.pdf({
+            format: "A4",
+            printBackground: true,
+            margin: { top: "5px", right: "5px", bottom: "5px", left: "5px" }
+        });
+
+        await browser.close();
+
+        res.set({
+            "Content-Type": "application/pdf",
+            "Content-Disposition": `attachment; filename=ticket_${ventaId}.pdf`,
+        });
+        res.status(200).send(pdfBuffer);
+    } catch (error) {
+        res.status(500).send('Error al descargar ticket: ' + error.message);
+    }
+});
+
+// Iniciar servidor
+async function startServer() {
+    try {
+        setupAssociations();
+        await sequelize.sync({ alter: true });
+        
+        app.listen(port, () => {
+            console.log(`Servidor iniciado en http://localhost:${port}`);
+        });
+    } catch (error) {
+        console.error("Error al iniciar servidor:", error);
+        process.exit(1);
+    }
+}
+
+startServer();
