@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
       col.className = "col-md-4 mb-3";
 
       const card = document.createElement("div");
-      card.className = "card h-100";
-      card.dataset.id = producto.id; // Agregar data-id
-      card.dataset.precio = producto.precio; // Agregar data-precio
+      card.className = "card h-80";
+      card.dataset.id = producto.id; 
+      card.dataset.precio = producto.precio;
 
       const img = document.createElement("img");
       img.src = producto.url_imagen;
@@ -50,15 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
       title.textContent = producto.nombre;
 
       const cantidad = document.createElement("p");
-      cantidad.className = "card-text cantidad"; // Agregar clase 'cantidad'
+      cantidad.className = "card-text cantidad"; 
       cantidad.textContent = `Cantidad: ${producto.cantidad}`;
 
       const precio = document.createElement("p");
       precio.className = "card-text fw-bold";
       precio.textContent = `$ ${producto.precio.toFixed(2)} c/u`;
 
-      const subtotal = document.createElement("p"); // Elemento para subtotal
-      subtotal.className = "card-text subtotal fw-bold"; // Agregar clase 'subtotal'
+      const subtotal = document.createElement("p"); 
+      subtotal.className = "card-text subtotal fw-bold"; 
       subtotal.textContent = `Subtotal: $${(producto.precio * producto.cantidad).toFixed(2)}`;
 
       const btnGroup = document.createElement("div");
@@ -106,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Event listener CORREGIDO para el botón de confirmar
   if (confirmarBtn) {
     confirmarBtn.addEventListener("click", async () => {
       // Obtener usuario de localStorage
@@ -114,6 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Obtener productos directamente del localStorage
       const carrito = getCarrito();
+
+      // Validar si el carrito está vacío
+      if (carrito.length === 0) {
+        alert("ERROR. Tu carrito está vacío.");
+        window.location.href = '/productos';
+      }
+
       const productos = carrito.map(item => ({
         id: item.id,
         cantidad: item.cantidad,
@@ -123,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Calcular total
       const total = calcularTotal(carrito);
+
 
       try {
         const response = await fetch("/ventas/exitosa", {

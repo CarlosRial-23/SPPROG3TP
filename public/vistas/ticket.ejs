@@ -37,14 +37,27 @@
         
       %>
     </div>
+    
     <p class="total">Total: $<%= parseFloat(ticket.total).toFixed(2) %></p>
-    <% if(!!ticket.view) { %>
+    
+    <div>
+      <% if(!!ticket.view) { %>
     <a href="http://localhost:3000/ticket/download/<%= ticket.id %>" target="_blank">
-      <button type="button" class="btn btn-info btn-sm">
+      <button type="button" class="btn btn-info btn-lg me-5">
         Descargar ticket
       </button>
     </a>
-  <% } %>
+    <% } %>
+    
+    <% if(!!ticket.view) { %>
+    <a href="/" >
+      <button type="button" class="btn btn-danger btn-lg">SALIR</button>
+    </a>
+    <% } %>
+
+    </div>
+    
+
 </body>
 
 <footer>

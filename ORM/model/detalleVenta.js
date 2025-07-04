@@ -37,7 +37,7 @@ const DetalleVenta = sequelize.define("DetalleVenta",
   },
   {
     tableName: "detalles_venta",
-    timestamps: true, // Unifica las opciones en un solo objeto
+    timestamps: true,
   }
 );
 
