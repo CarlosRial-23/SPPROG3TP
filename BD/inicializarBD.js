@@ -1,4 +1,4 @@
-import { dropearTabla } from "./funcionesInicializarBD.js";
+import { crearTablaVentasProductos, dropearTabla } from "./funcionesInicializarBD.js";
 import { crearTabla } from "./funcionesInicializarBD.js";
 import { cargarTabla } from "./funcionesInicializarBD.js";
 import { crearTablaVenta } from "./funcionesInicializarBD.js";
@@ -41,6 +41,7 @@ export async function inicializarBD() {
   crearTabla(db,monitores);
   crearTabla(db,computadoras);
   crearTablaVenta(db,ventas);
+  crearTablaVentasProductos(db,ventas_productos)
 
   //Cargar tablas
   cargarTabla(db,monitores, datosMonitores);

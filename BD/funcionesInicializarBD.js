@@ -52,3 +52,24 @@ export async function cargarTabla(db,nombreTabla,arrayDatos) {
   }
 }
 
+export async function crearTablaVentasProductos(db,nombreTabla) {
+    try {
+    const query = `CREATE TABLE ventas_productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_venta INT NOT NULL,
+    id_computadora INT,
+    id_monitor INT,
+    cantidad INT NOT NULL,
+    tipo_producto ENUM('computadora', 'monitor') NOT NULL,
+    
+    FOREIGN KEY (id_venta) REFERENCES ventas(id),
+    FOREIGN KEY (id_computadora) REFERENCES computadoras(id),
+    FOREIGN KEY (id_monitor) REFERENCES monitores(id)
+);`; //Tendria que poner que es AUTOINCREMENT a la hora de crear la BD.
+    const resultado = await db.query(query);
+    console.log(`Tabla ${nombreTabla} creada`);
+  } catch (error){
+    console.log("No se creo la tabla ventas_productos", error);
+  }
+}
+
