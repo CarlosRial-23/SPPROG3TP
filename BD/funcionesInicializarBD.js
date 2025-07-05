@@ -3,8 +3,8 @@ export async function dropearTabla(db,nombreTabla) {
     const query = `DROP TABLE IF EXISTS ${nombreTabla}`;
     const resultado = await db.execute(query);
     console.log(`Tabla ${nombreTabla} vacia`);
-  } catch {
-    console.log("Error al eliminar los datos de la tabla");
+  } catch (error) {
+    console.log("Error al eliminar los datos de la tabla", error.message);
   }
 }
 

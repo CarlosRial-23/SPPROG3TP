@@ -19,9 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Ruta para obtener las computadoras. (clientes)
-app.get("/computadoras", async (req, res) => {
+app.get("/computadoras/:id", async (req, res) => {
   try {
-    const computadoras = await computadora.findAll({where: {activo: true}});
+    const computadoras = await computadora.findOne({where: {id: req.params.id, activo: true}});
     res.status(200).json(computadoras);
   } catch (e) {
     res.status(500).json({ e: "Error en la consulta" });
@@ -29,14 +29,16 @@ app.get("/computadoras", async (req, res) => {
 });
 
 //Ruta para obtener los monitores. (clientes)
-app.get("/monitores", async (req, res) => {
+app.get("/monitores/:id", async (req, res) => {
   try {
-    const monitores = await monitor.findAll({where: {activo: true}});
+    const monitores = await monitor.findOne({where: {id: req.params.id, activo: true}});
     res.status(200).json(monitores);
   } catch (e) {
     res.status(500).json({ e: "Error en la consulta" });
   }
 });
+
+
 
 //Ruta para obtener las computadoras. (admin)
 app.get("/admin/computadoras", async (req, res) => {

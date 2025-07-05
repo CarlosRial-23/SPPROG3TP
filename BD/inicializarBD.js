@@ -9,6 +9,7 @@ dotenv.config();
 const monitores = "monitores";
 const computadoras = "computadoras";
 const ventas = "ventas";
+const ventas_productos = "ventas_productos";
 
 const datosComputadoras = [
     ['PC oficina basico', '/images/pc_oficina.jpg', 1200, 10], //Ojo las comillas aca.
@@ -31,6 +32,7 @@ export async function inicializarBD() {
   });
 
   //limpio las tablas
+  dropearTabla(db,ventas_productos);
   dropearTabla(db,monitores);
   dropearTabla(db,computadoras);
   dropearTabla(db,ventas)
@@ -41,6 +43,11 @@ export async function inicializarBD() {
   crearTablaVenta(db,ventas);
 
   //Cargar tablas
+  cargarTabla(db,monitores, datosMonitores);
+  cargarTabla(db,computadoras, datosComputadoras);
+  
+  
+  //Cargo 2 veces para probar el tema de la paginacion.
   cargarTabla(db,monitores, datosMonitores);
   cargarTabla(db,computadoras, datosComputadoras);
 
