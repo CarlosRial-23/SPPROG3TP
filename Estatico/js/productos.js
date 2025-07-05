@@ -12,7 +12,7 @@ function guardarCarrito(carrito) {
 }
 
 // Crear una tarjeta de producto
-function crearTarjeta(producto) {
+function crearTarjeta(producto, tipoProducto) {
   const col = document.createElement("div");
   col.className = "col";
 
@@ -55,7 +55,7 @@ function crearTarjeta(producto) {
     if (existing) {
       existing.cantidad++;
     } else {
-      carrito.push({ ...producto, cantidad: 1 });
+      carrito.push({ ...producto, cantidad: 1, tipo_producto: tipoProducto });
     }
     guardarCarrito(carrito);
     actualizarContadorCarrito();
@@ -99,7 +99,7 @@ async function cargarProductos() {
       const promise = await fetch('/computadoras');
       const computadoras = await promise.json();
       computadoras.forEach(producto =>{
-             const card = crearTarjeta(producto);
+             const card = crearTarjeta(producto, "computadora");
             pcContainer.appendChild(card);
       })
 
@@ -111,7 +111,7 @@ async function cargarProductos() {
       const promise = await fetch('/monitores');
       const monitores = await promise.json();
       monitores.forEach(producto =>{
-            const card = crearTarjeta(producto);
+            const card = crearTarjeta(producto, "monitor");
             monitorContainer.appendChild(card);
       })
     } catch(error){

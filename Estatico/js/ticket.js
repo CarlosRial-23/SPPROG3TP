@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const puppeteer = require("puppeteer"); //npm install puppeteer
 const venta = require("../../Modelo/venta.js")
+const ventaProducto = require("../../Modelo/venta_producto.js")
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -21,7 +22,7 @@ class Ticket {
   view = true;
 }
 
-async function guardarTicket(nombreUsuario, fecha, total) {
+async function guardarTicket(nombreUsuario, fecha, total, productos) {
       try {
     // Crear la venta
     const nuevaVenta = await venta.create({
@@ -45,7 +46,7 @@ async function guardarTicket(nombreUsuario, fecha, total) {
         dataVentaProducto.id_monitor = prod.id;
       }
 
-      await ventasProductos.create(dataVentaProducto);
+      await ventaProducto.create(dataVentaProducto);
     }
 
     } catch(error){
@@ -62,6 +63,7 @@ async function getTicket(req, res) {
   }
 
   const productos = JSON.parse(carrito);
+  console.log(productos);
   let detalleProducto = [];
   let total = 0;
   const fechaTicket = new Date()
@@ -86,7 +88,7 @@ async function getTicket(req, res) {
   newTicket.detalleProducto = detalleProducto;
   
   //guardo en la bd
-  await guardarTicket(newTicket.nombreCliente, fechaTicket, newTicket.total);
+  await guardarTicket(newTicket.nombreCliente, fechaTicket, newTicket.total, productos);
 
   tickets[newTicket.id] = newTicket;
 
