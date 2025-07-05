@@ -162,7 +162,7 @@ async function getProductos(id, cantidad, url) {
 }
 
   async function paginaSiguiente(estado, containerProducto, url, tipoProducto, anterior, siguiente) {
-    estado.paginaActual++;
+  estado.paginaActual++;
   console.log(`Estoy en la pagina ${estado.paginaActual}`)
 
   let inicio = (estado.paginaActual - 1) * CANTIDAD_PRODUCTOS;
@@ -171,6 +171,7 @@ async function getProductos(id, cantidad, url) {
   let productos = await renderProductos(containerProducto, url, tipoProducto, estado.ultimoId);
 
   if (productos.length === 0) {
+    containerProducto.innerHTML = "<div>FINALIZO LA LISTA DE PRODUCTOS A MOSTRAR. REGRESE A LA PAGINA ANTERIOR</div>"
     siguiente.disabled = true;
   }
 
