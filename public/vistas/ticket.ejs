@@ -28,7 +28,7 @@
     </nav>
 
     <p>ID: <%= ticket.id %></p>
-    <p>Fecha:<%= ticket.fecha %></p>
+    <p>Fecha:<%= typeof ticket.fecha === 'string' ? ticket.fecha.split('T')[0] : ticket.fecha %>
     <div>
       <p>Gracias por su compra <%= ticket.nombre %></p>
       <% ticket.productos.forEach(e => { %>

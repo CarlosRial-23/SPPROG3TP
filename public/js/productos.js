@@ -1,6 +1,8 @@
 const pcContainer = document.getElementById("pc");
 const monitorContainer = document.getElementById("monitor");
 
+
+
 // Obtener el carrito desde localStorage
 function getCarrito() {
   return JSON.parse(localStorage.getItem("carrito")) || [];
@@ -9,6 +11,44 @@ function getCarrito() {
 // Guardar el carrito en localStorage
 function guardarCarrito(carrito) {
   localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+async function obtenerProductos() {
+  try {
+    const response = await fetch('/api/productos');
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    return [];
+  }
+}
+
+async function cargarProductos() {
+  pcContainer.innerHTML = "";
+  monitorContainer.innerHTML = "";
+  
+  try {
+    const productos = await obtenerProductos();
+    const pcs = productos.filter(p => p.categoria === 'Computadora');
+    const monitores = productos.filter(p => p.categoria === 'Monitor');
+    
+    pcs.forEach(producto => {
+      const card = crearTarjeta(producto);
+      pcContainer.appendChild(card);
+    });
+    
+    monitores.forEach(producto => {
+      const card = crearTarjeta(producto);
+      monitorContainer.appendChild(card);
+    });
+    
+  } catch (error) {
+    console.error("Error al cargar productos:", error);
+  }
 }
 
 // Crear una tarjeta de producto
@@ -33,7 +73,14 @@ function crearTarjeta(producto) {
 
   const price = document.createElement("p");
   price.className = "card-text fw-bold";
-  price.textContent = `$ ${producto.precio.toFixed(2)}`;
+  
+  const precioNumerico = Number(producto.precio);
+  if (isNaN(precioNumerico)) {
+    console.error("Precio no válido para producto:", producto);
+    price.textContent = "Precio no disponible";
+  } else {
+    price.textContent = `$ ${precioNumerico.toFixed(2)}`;
+  }
 
   const btnGroup = document.createElement("div");
   btnGroup.className = "d-flex justify-content-between";
@@ -90,6 +137,7 @@ function crearTarjeta(producto) {
   return col;
 }
 
+/*
 // Cargar productos al inicio desde JSON
 function cargarProductos() {
     pcContainer.innerHTML = "";
@@ -116,6 +164,7 @@ function cargarProductos() {
     })
     .catch((error) => console.error("Error al cargar el archivo JSON:", error));
 }
+*/
 
 function actualizarContadorCarrito() {
     const carrito = getCarrito();

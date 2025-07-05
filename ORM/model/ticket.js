@@ -1,4 +1,4 @@
-export class Ticket {
+class Ticket {
     id = "";
     fecha = "";
     nombre = "";
@@ -6,3 +6,5 @@ export class Ticket {
     total = 0;
     view = true;
 }
+
+module.exports = { Ticket };
