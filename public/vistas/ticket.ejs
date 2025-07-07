@@ -11,7 +11,7 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="\css\ticket.css" />
+    <link rel="stylesheet" href="../css/ticket.css" />
 </head>
 <body>
     <header>
@@ -42,7 +42,7 @@
     
     <div>
       <% if(!!ticket.view) { %>
-    <a href="http://localhost:3000/ticket/download/<%= ticket.id %>" target="_blank">
+    <a href="http://localhost:3000/tickets/download/<%= ticket.id %>" target="_blank">
       <button type="button" class="btn btn-info btn-lg me-5">
         Descargar ticket
       </button>

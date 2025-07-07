@@ -1,6 +1,6 @@
 const pcContainer = document.getElementById("pc");
 const monitorContainer = document.getElementById("monitor");
-
+const inicioBtn = document.getElementById("btn-Inicio");
 
 
 // Obtener el carrito desde localStorage
@@ -166,6 +166,11 @@ function cargarProductos() {
 }
 */
 
+if (inicioBtn) {
+    inicioBtn.addEventListener("click", async () => {
+        localStorage.clear();
+    });}
+
 function actualizarContadorCarrito() {
     const carrito = getCarrito();
     const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
@@ -174,6 +179,7 @@ function actualizarContadorCarrito() {
         contador.textContent = totalItems;
       }
   }
+
 
 cargarProductos();
 actualizarContadorCarrito();

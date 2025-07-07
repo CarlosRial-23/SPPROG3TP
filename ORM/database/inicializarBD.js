@@ -8,12 +8,8 @@ async function inicializarBD() {
     await sequelize.authenticate();
     console.log('Conexión con Sequelize establecida correctamente.');
 
-    // Primero eliminar las tablas que tienen dependencias
-    await DetalleVenta.drop({ cascade: true });
-    await Venta.drop({ cascade: true });
-    await Producto.drop({ cascade: true });
-
-    // Luego crear las tablas en orden inverso
+    // Sincronizar modelos
+    await sequelize.drop(); 
     await Producto.sync({ force: true });
     await Venta.sync({ force: true });
     await DetalleVenta.sync({ force: true });
@@ -28,4 +24,4 @@ async function inicializarBD() {
   }
 }
 
-module.exports = {inicializarBD}; // Cambia esta línea
+module.exports = {inicializarBD}; 

@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const carritoContainer = document.getElementById("lista-carrito");
   const totalSpan = document.getElementById("total");
   const confirmarBtn = document.getElementById("btn-confirmar");
+  const inicioBtn = document.getElementById("btn-Inicio");
+  const productosBtn = document.getElementById("btn-productos");
 
   function getCarrito() {
     return JSON.parse(localStorage.getItem("carrito")) || [];
@@ -106,12 +108,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  if (inicioBtn) {
+    inicioBtn.addEventListener("click", async () => {
+        localStorage.clear();
+    });}
+
   if (confirmarBtn) {
     confirmarBtn.addEventListener("click", async () => {
       // Obtener usuario de localStorage
-      const usuario = localStorage.getItem("nombreUsuario") || "invitado";
-
-      // Obtener productos directamente del localStorage
+      const usuario = localStorage.getItem("nombreUsuario");
       const carrito = getCarrito();
 
       // Validar si el carrito está vacío
@@ -144,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           // Limpiar carrito y redirigir al ticket
           localStorage.removeItem("carrito");
-          window.location.href = `/ticket/${data.id}`;
+          window.location.href = `/tickets/${data.id}`;
         } else {
           const errorData = await response.json();
           throw new Error(errorData.error || "Error en el servidor");
