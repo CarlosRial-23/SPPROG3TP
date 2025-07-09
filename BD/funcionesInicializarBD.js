@@ -73,3 +73,19 @@ export async function crearTablaVentasProductos(db,nombreTabla) {
   }
 }
 
+export async function crearTablaUsuarios(db) {
+  try{
+    const query = `CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    rol ENUM('admin', 'user') DEFAULT 'user'
+);`
+    const resultado = await db.query(query);
+    console.log('Tabla de usuarios creada');
+  }catch(error){
+    console.log("Error al crear la tabla de usuarios");
+  }
+  
+}

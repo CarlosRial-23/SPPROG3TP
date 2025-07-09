@@ -1,10 +1,12 @@
 const pcContainer = document.getElementById("pc");
 const monitorContainer = document.getElementById("monitor");
 const CANTIDAD_PRODUCTOS = 3;
+
 const estadoPc ={
   ultimoId: 0 ,
   paginaActual : 1, 
 }
+
 let ultimoIdMonitor = 0;
 
 const estadoMonitor ={

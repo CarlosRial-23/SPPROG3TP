@@ -1,8 +1,5 @@
 const express = require('express') 
 const app = express()
-const port = 3000
-//requiero el sequelize
-const { sequelize } = require("./Modelo/dbSequelize.js");
 
 //Importacion Routers
 const routerComputadora = require("./Rutas/computadoras.routes.js")
@@ -24,15 +21,4 @@ app.use('/', routerMonitor);
 app.use('/', routerTicket);
 app.use('/', routerVentas);
 
-
-sequelize
-.sync() //Se sincronice la BD
-.then(() => {
-  //Que se ejecute mi servidor
-  app.listen(port, () => {
-    `Example app listenning on port ${port}`;
-  })})
-.catch((err)=>{
-    console.log("Unable to connect to the database", err);
-})
-
+module.exports = app;

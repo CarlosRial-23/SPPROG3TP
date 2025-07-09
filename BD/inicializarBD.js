@@ -1,7 +1,4 @@
-import { crearTablaVentasProductos, dropearTabla } from "./funcionesInicializarBD.js";
-import { crearTabla } from "./funcionesInicializarBD.js";
-import { cargarTabla } from "./funcionesInicializarBD.js";
-import { crearTablaVenta } from "./funcionesInicializarBD.js";
+import { crearTablaVentasProductos, dropearTabla, crearTabla, cargarTabla,crearTablaVenta, crearTablaUsuarios } from "./funcionesInicializarBD.js";
 import mysql from 'mysql2/promise'; //Hago import y no require porque ya venia usando import en este modulo. //npm imysql2
 import dotenv from 'dotenv'; //me traigo los .env  - /*npm i dotenv
 dotenv.config();
@@ -42,6 +39,7 @@ export async function inicializarBD() {
   crearTabla(db,computadoras);
   crearTablaVenta(db,ventas);
   crearTablaVentasProductos(db,ventas_productos)
+  crearTablaUsuarios(db);
 
   //Cargar tablas
   cargarTabla(db,monitores, datosMonitores);
