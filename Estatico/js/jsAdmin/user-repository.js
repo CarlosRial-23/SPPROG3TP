@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 10 //Esto lo tengo que traner del ".env"
-const user = require('./userModelo.js') //****moverlo despues a la carpeta de MODELO.
+const SALT_ROUNDS = process.env.SALT_ROUNDS;
+const user = require('../../../Modelo/userModelo.js') //****moverlo despues a la carpeta de MODELO.
 
 class Validation{
     static username(username){

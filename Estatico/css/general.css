@@ -169,6 +169,10 @@ td {
   padding: 10px;
 }
 
+img{
+  background-color: var(--color-texto);
+}
+
 @media (max-width: 992px) {
   header h1,
   header h2 {

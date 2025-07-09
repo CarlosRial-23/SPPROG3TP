@@ -1,38 +1,39 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const { UserRepository } = require('./user-repository');
-const usuario = require('./userModelo');
-const SECRET_JWT_KEY = 'clave_secreta'
+const { UserRepository } = require('../Estatico/js/jsAdmin/user-repository.js');
+const SECRET_JWT_KEY = process.env.SECRET_JWT_KEY
+const routerAdmin = express.Router();
 
-const app = express() //lo hago en una nueva app pero lo voy a terminar pasando al otro index y haciendo la routes. 
+routerAdmin.use(cookieParser());
 
-app.use(express.json());
-app.use(cookieParser());
-
-app.set('view engine', 'ejs') //evaluar este tema
+//routerAdmin.set('view engine', 'ejs') //No se usa set con routerAdmin. 
 
 //middleware para que haga añada el token a la info de la peticion. 
-app.use((req, res, next)=>{
+routerAdmin.use((req, res, next)=>{
     const token = req.cookies.access_token;
-    req.session = {user: null};
+    req.user = null;
 
     try{
         const data = jwt.verify(token, SECRET_JWT_KEY);
-        req.session.user = data;        
+        req.user = data;        
     } catch {
+        req.user = null;
     }
     next();
 })
 
 //En el get de la raiz tengo que tener el user del req.session
-app.get('/admin', (req,res)=>{
-    const {user} = req.session;
-    res.render('index', user) //renderizo y devuelvo el objeto user.
+routerAdmin.get('/user', (req,res)=>{
+    if(!req.user){
+        return res.status(401).json({error: "No autenticado"});
+    }
+    res.json({id: req.user.id, email: req.user.email});
 })
 
-//Login
-app.post('/admin/login', async (req,res)=>{
+//Log in de nuevo usuario
+routerAdmin.post('/login', async (req,res)=>{
     const {email, password} = req.body; //lo pido del body.
     
     try{
@@ -64,7 +65,7 @@ app.post('/admin/login', async (req,res)=>{
 )
 
 //Registro
-app.post('/admin/register', async (req,res)=> {
+routerAdmin.post('/register', async (req,res)=> {
     const {email, name, password } = req.body;
     const rol = 'admin';
 
@@ -89,7 +90,4 @@ app.post('/admin/register', async (req,res)=> {
     
 })
 
-
-//Me falta que viaje a la pagina protegida
-
-//Me falta el logout.
+module.exports = routerAdmin;

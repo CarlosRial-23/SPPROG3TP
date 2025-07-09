@@ -12,11 +12,19 @@ const datosComputadoras = [
     ['PC oficina basico', '/images/pc_oficina.jpg', 1200, 10], //Ojo las comillas aca.
     ['PC gamer L4000', '/images/pc_gamerBasica.jpg', 2400, 10],
     ['PC Ultra R8500', '/images/pc_oficina.jpg', 3800, 10],
+    ['PC workstation X200', '/images/pc_4.png', 3500, 8],
+    ['PC gamer Pro Z900', '/images/pc_5.png', 5000, 5],
+    ['PC ultraligera S100', '/images/pc_6.png', 1800, 12],
+    ['PC todo en uno AIO500', '/images/pc_7.png', 2700, 7]
 ];
 const datosMonitores = [
     ['Asus L4511 21"', '/images/monitor1.png', 11000, 10],
     ['MSI Z200 25"', '/images/monitor2.png', 22000, 10],
-    ['LG Ultra Gear 27"', '/images/monitor3.png', 38000, 10],
+    ['LG Ultra Gear 27"', '/images/monitor3.png', 38000, 10],    
+    ['Dell UltraSharp 24"', '/images/monitor4.png', 28000, 8],
+    ['Samsung Odyssey 32"', '/images/monitor5.png', 42000, 5],
+    ['BenQ EX3501R 35"', '/images/monitor6.png', 48000, 6],
+    ['AOC 27G2 27"', '/images/monitor7.png', 25000, 9],
 ];
 
 export async function inicializarBD() {
@@ -42,11 +50,6 @@ export async function inicializarBD() {
   crearTablaUsuarios(db);
 
   //Cargar tablas
-  cargarTabla(db,monitores, datosMonitores);
-  cargarTabla(db,computadoras, datosComputadoras);
-  
-  
-  //Cargo 2 veces para probar el tema de la paginacion.
   cargarTabla(db,monitores, datosMonitores);
   cargarTabla(db,computadoras, datosComputadoras);
 
