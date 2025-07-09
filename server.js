@@ -10,7 +10,6 @@ const routerAdmin = require("./Rutas/admin.routes.js")
 
 app.use(express.static('Estatico'));
 app.use('/', express.static('Estatico/pagesUser'));
-app.use('/admin', express.static('Estatico/pagesAdmin'));
 
 //Middleware para Json
 app.use(express.urlencoded({ extended: true }));

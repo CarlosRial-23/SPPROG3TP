@@ -1,9 +1,10 @@
+require('dotenv').config();
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-const SALT_ROUNDS = process.env.SALT_ROUNDS;
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS)
 const user = require('../../../Modelo/userModelo.js') //****moverlo despues a la carpeta de MODELO.
 
-class Validation{
+ class Validation{
     static username(username){
         if (typeof username != 'string') throw new Error('El nombre de usuario tiene que ser un String');
         if (username.length < 3) throw new Error('El nombre de usuario tiene que tener como minimo 3 caracteres');
@@ -13,8 +14,8 @@ class Validation{
         if(typeof email != 'string' || !email.includes('@')){throw new Error ('Email invalido')}}
         
     static password(password){
-        if (typeof password != 'string') throw new Error('Error de password');
-        if (password.length < 5) throw new Error('Error de password');
+        if (typeof password != 'string') throw new Error('Error de password. Debe estar escrito en caracteres');
+        if (password.length < 5) throw new Error('Error de password. Debe contener mas de 5 caracteres');
     }
 
     static rol(rol){
@@ -25,7 +26,7 @@ class Validation{
 
 
 //tengo que tener el modelo del usuario que importo.
-export class UserRepository{
+ class UserRepository{
     //Crear un usuario
     static async create({email, name, password, rol}){
         Validation.email(email);
@@ -61,5 +62,4 @@ export class UserRepository{
 }
 
 
-
-
+module.exports = UserRepository;

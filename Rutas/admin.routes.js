@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const { UserRepository } = require('../Estatico/js/jsAdmin/user-repository.js');
+const UserRepository = require('../Estatico/js/jsAdmin/user-repository.js');
 const SECRET_JWT_KEY = process.env.SECRET_JWT_KEY
 const routerAdmin = express.Router();
+const path = require('path')
 
 routerAdmin.use(cookieParser());
 
@@ -32,7 +33,7 @@ routerAdmin.get('/user', (req,res)=>{
     res.json({id: req.user.id, email: req.user.email});
 })
 
-//Log in de nuevo usuario
+//Log in de nuevo usuario -->
 routerAdmin.post('/login', async (req,res)=>{
     const {email, password} = req.body; //lo pido del body.
     
@@ -89,5 +90,19 @@ routerAdmin.post('/register', async (req,res)=> {
     }
     
 })
+
+//Ruta protegida: si no tiene el usuario autenticado no puede entrar aca nadie.
+routerAdmin.get('/dashboard', (req,res) =>{
+    if(!req.user){
+        return res.redirect('/admin')
+    }
+
+    res.sendFile(path.join(__dirname, '..','Admin', 'src','pagesAdmin', 'dashboard.html'))
+})
+
+
+routerAdmin.get('/', (req, res) => {
+ res.sendFile(path.join(__dirname, '..', 'Admin', 'src', 'pagesAdmin', 'index.html'));
+});
 
 module.exports = routerAdmin;
