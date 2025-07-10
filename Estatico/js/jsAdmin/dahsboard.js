@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", ()=>{
-    renderizarTabla("/admin/monitores","t_body_monitores")
-    renderizarTabla("/admin/computadoras", "t_body_computadoras")
+    renderizarTabla("/admin/monitores","t_body_monitores");
+    renderizarTabla("/admin/computadoras", "t_body_computadoras");
+    actualizarToken();
 })
 
 async function renderizarTabla(url, tableBody) {
@@ -36,3 +37,45 @@ async function renderizarTabla(url, tableBody) {
     }
     
 }
+
+
+async function actualizarToken() {
+    const intervalo = 1000 * 60 * 14;
+    //const intervalo = 1000 * 4;
+    setTimeout(async()=>{
+        try{
+            const res = await fetch('/admin/refresh',{
+              method: 'POST',
+              headers:{
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include',
+            });
+    
+            if(!res.ok){
+              const error = await res.text();
+              throw new Error(error)}
+    
+            actualizarToken();
+          }catch(error){
+            console.log(`Error:`, error);
+            alert("Error de login: " + error.message);
+            window.location.href = "/admin";
+          }
+    },intervalo); 
+}
+
+document.getElementById('logoutBtn').addEventListener("click", async ()=>{
+    try{
+        const res = await fetch('/admin/logout',{
+            method: 'POST',
+            credentials: 'include',
+        })
+     
+    if(!res.ok) throw new Error("Error al cerrar sesion");
+    window.location.href = "/admin";
+    } catch(error){
+         console.error("Error cerrando sesión:", err);
+        alert("No se pudo cerrar sesión.");
+    }
+});

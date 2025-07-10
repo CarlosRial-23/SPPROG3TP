@@ -45,17 +45,27 @@ routerAdmin.post('/login', async (req,res)=>{
             SECRET_JWT_KEY,
             {expiresIn: '15m'})
         
-            /* const refreshToken = jwt.sign(
-            {id: user.id, username: user.username}, 
+        const refreshToken = jwt.sign(
+            {id: usuarioRegistrado.id, username: usuarioRegistrado.username}, 
             SECRET_JWT_KEY,
             {expiresIn: '7d'}
-            );*/
+            );
 
-        res.cookie('access_token', token,
+        res
+        .cookie('access_token', token,
             {httpOnly: true,
              secure: false, //no estoy en https ahora
              sameSite: 'strict',
-             maxAge: 1000 * 60* 10} //dura 10 minutos
+             maxAge: 1000 * 60 * 15}
+             //maxAge: 1000 * 60* 10} // 1000 milisegundos = 1 segundo, * 60 segundos = 1 minuto, * 10 = 10 minutos total
+        )
+        .cookie('refresh_token', refreshToken,
+            {
+                httpOnly: true,
+                secure:false,
+                sameSite: 'strict',
+                maxAge: 1000 *60 *60 *24 * 7,
+            }
         )
         .send(usuarioRegistrado);
     
@@ -91,6 +101,36 @@ routerAdmin.post('/register', async (req,res)=> {
     
 })
 
+
+routerAdmin.post('/refresh', async(req, res)=>{
+    const refreshToken = req.cookies.refresh_token;
+    if(!refreshToken){
+        return res.status(401).json({error: 'No se encontre el refreshToken'});
+    }
+
+    try{
+        const data = jwt.verify(refreshToken, SECRET_JWT_KEY);
+        const tokenAccesoNuevo = jwt.sign(
+            {id: data.id, email: data.email},
+            SECRET_JWT_KEY,
+            {expiresIn:'15m'}
+        )
+        //actualizo la cookie
+        res.cookie('access_token', tokenAccesoNuevo,{
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 15
+        })
+
+        res.json({message: 'Token renovado'})
+
+    } catch(error){
+        res.status(403).json({error: 'Refresh token invalido.'})
+    }
+})
+
+
 //Ruta protegida: si no tiene el usuario autenticado no puede entrar aca nadie.
 routerAdmin.get('/dashboard', (req,res) =>{
     if(!req.user){
@@ -104,5 +144,12 @@ routerAdmin.get('/dashboard', (req,res) =>{
 routerAdmin.get('/', (req, res) => {
  res.sendFile(path.join(__dirname, '..', 'Admin', 'src', 'pagesAdmin', 'index.html'));
 });
+
+//Desloggearse
+routerAdmin.post('/logout', (req,res)=>{
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    res.json({message: 'Sesion finalizad'});
+})
 
 module.exports = routerAdmin;
