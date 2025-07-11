@@ -9,7 +9,7 @@
       integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./cssAdmin/index.css" />
+    <link rel="stylesheet" href="../cssAdmin/index.css" />
   </head>
   <body>
     <div class="contenedor">
@@ -17,18 +17,18 @@
         <h1>Bienvenido Administrador</h1>
       </div>
       <div>
-        <form id="inicio">
+        <form id="inicio" action="/auth/login" method="POST">
           
           <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
+            <label for="email" class="form-label">email</label>
             <input
-              type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" required/>
+              type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email" required/>
           </div>
           
           <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input
-              type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required/>
+              type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required/>
           </div>
 
           <button type="submit" class="btn btn-primary w-100">Ingresar</button>
@@ -36,6 +36,7 @@
         </form>
       </div>
     </div>
-    <script src="./jsAdmin/pantallaInicioAdmin.js"></script>
+  
+    <script src="../jsAdmin/pantallaInicioAdmin.js"></script>
   </body>
 </html>

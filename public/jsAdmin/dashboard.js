@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 // Función para cargar y mostrar los productos
   async function obtenerProductos() {
     try {
-      const response = await fetch('/api');
+      const response = await fetch('/api/admin');
       if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
       }

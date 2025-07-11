@@ -10,24 +10,27 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="./cssAdmin/general.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../cssAdmin/general.css" />
 </head>
 
 <body>
 
   <main class="container">
     <header>
-      <img src="./images/logo.png" alt="logo_tienda" class="logo-header">
+      <img src="../images/logo.png" alt="logo_tienda" class="logo-header">
       <h1>ALTA PRODUCTO</h1>
       <h2>ADMIN</h2>
     </header>
 
+    
     <nav id="navbar-principal">
       <ul class="nav-left">
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/dashboard.html">Volver al Dashboard</a></li>
+        <li><a href="/login">Inicio</a></li>
+        <li><a href="/dashboard">Volver al Dashboard</a></li>
       </ul>
     </nav>
+    
 
     <!-- Formulario para el alta de productos -->
     <form id="formAltaProducto" method="post"  action="/api" enctype="multipart/form-data">
@@ -72,7 +75,9 @@
       
       <button type="submit" class="btn btn-primary">Guardar Producto</button>
     </form>
-
+    <button class="btn-logout-top" onclick="location.href='/'">
+      <i class="fas fa-sign-out-alt"></i> <!-- Icono de logout -->
+    </button>
     <footer>
       <div class="contenedor-nombres"
         style="font-size: 2rem; display: flex; justify-content: space-between; align-items: center;">
@@ -82,7 +87,7 @@
     </footer>
   </main>
 
-  <script src="./jsAdmin/dashboard.js"></script>
+  <script src="../jsAdmin/dashboard.js"></script>
 </body>
 
 </html>

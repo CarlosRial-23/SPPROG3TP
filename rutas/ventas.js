@@ -1,6 +1,7 @@
 const express = require("express");
-const { Producto, Venta, DetalleVenta } = require("../ORM/model/modelos");
-const { sequelize } = require('../ORM/database/index');
+const { Producto, Venta, DetalleVenta } = require("../model/modelos");
+const { DataTypes } = require("sequelize");
+const sequelize  = require('../database/index.js');
 
 // Rutas de ventas
 const ventaRoutes = express.Router();

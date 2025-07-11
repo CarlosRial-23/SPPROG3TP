@@ -28,11 +28,24 @@ async function obtenerProductos() {
 }
 
 async function cargarProductos() {
-  pcContainer.innerHTML = "";
-  monitorContainer.innerHTML = "";
-  
   try {
-    const productos = await obtenerProductos();
+    const response = await fetch('/api');
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    const productos = await response.json();
+    
+    // Limpiar contenedores
+    pcContainer.innerHTML = "";
+    monitorContainer.innerHTML = "";
+    
+    // Verificar si hay productos
+    if (productos.length === 0) {
+      pcContainer.innerHTML = "<p>No hay productos disponibles</p>";
+      return;
+    }
+
+    // Filtrar y mostrar productos
     const pcs = productos.filter(p => p.categoria === 'Computadora');
     const monitores = productos.filter(p => p.categoria === 'Monitor');
     
@@ -48,6 +61,7 @@ async function cargarProductos() {
     
   } catch (error) {
     console.error("Error al cargar productos:", error);
+    pcContainer.innerHTML = `<p class="text-danger">Error al cargar productos: ${error.message}</p>`;
   }
 }
 

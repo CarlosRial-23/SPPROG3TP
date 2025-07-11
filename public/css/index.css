@@ -50,4 +50,25 @@ footer {
   padding: 10px 0;
 }
 
+.btn-login-top {
+    height: 50px;
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 1000;
+    padding: 10px 22px;
+    background: rgb(99, 98, 98);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transition: background 0.2s;
+}
+.btn-login-top:hover {
+    background: #0056b3;
+}
+
     

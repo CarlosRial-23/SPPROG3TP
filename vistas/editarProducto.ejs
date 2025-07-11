@@ -14,25 +14,24 @@
 <body>
   <main class="container">
     <header>
-      <img src="/images/logo.png" alt="logo_tienda" class="logo-header">
+      <img src="../public/images/logo.png" alt="logo_tienda" class="logo-header">
       <h1>EDITAR PRODUCTO</h1>
     </header>
 
     <nav>
       <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/login">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="/dashboard">Volver al Dashboard</a></li>
       </ul>
     </nav>
 
     <!-- Formulario de edición -->
-    <form id="formEditarProducto" method="POST" action="/api/<%= producto.id %>/editar" enctype="multipart/form-data">
-      <input type="hidden" name="id" value="<%= producto.id %>">
-
-      <div class="mb-3">
-        <label for="nombreProducto" class="form-label">Nombre del Producto</label>
-        <input type="text" class="form-control" id="nombreProducto" name="nombre" value="<%= producto.nombre %>" required>
-      </div>
+    <form id="formEditarProducto" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="<%= producto.id %>">
+  <div class="mb-3">
+    <label for="nombreProducto" class="form-label">Nombre del Producto</label>
+    <input type="text" class="form-control" id="nombreProducto" name="nombre" value="<%= producto.nombre %>" required>
+  </div>
 
       <div class="mb-3">
         <label for="imagenProducto" class="form-label">Imagen del Producto</label>
@@ -84,10 +83,11 @@ document.getElementById('formEditarProducto').addEventListener('submit', async f
   
   const form = e.target;
   const formData = new FormData(form);
-  const id = formData.get('id');
+  const id = formData.get('id');  // Obtén el ID del producto desde el formulario
 
   try {
-    const response = await fetch(`/api/productos/${id}/editar`, {
+    // Asegúrate de que la URL sea correcta: "/api/{id}/editar"
+    const response = await fetch(`/api/${id}/editar`, {
       method: 'PUT',
       body: formData
     });

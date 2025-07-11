@@ -72,29 +72,79 @@ exports.crearTablaDetallesVenta= async function(bd){
 }
 */
 
+// exports.cargarTablaProductos = async function() {
+//     try {
+//     const query = `INSERT INTO productos (nombre, url_imagen, precio, cantidad, categoria , activo) VALUES
+//   ("PC oficina basica", "/images/pc_oficina.jpg", 140000.99, 0, "Computadora", TRUE),
+//   ("PC gamer L4000", "/images/pc_gamerBasica.jpg", 240015.99, 0, "Computadora", TRUE),
+//   ("PC Ultra R8500", "/images/pc_gamerPro.jpg", 470100, 0, "Computadora", TRUE),
+//   ("ASUS L4511 21", "/images/monitor1.png", 140000.99, 0, "Monitor", TRUE),
+//   ("MSI Z200 25", "/images/monitor2.png", 199436.87, 0, "Monitor", TRUE),
+//   ("LG Ultra Gear 27", "/images/monitor3.png", 350470.99, 0, "Monitor", TRUE);
+//     `;
+//     await sequelize.query(query);
+//     console.log("Datos iniciales cargados en productos");
+//   } catch {
+//     console.log("No se cargaron los datos");
+//   }
+// }
+
 exports.cargarTablaProductos = async function() {
-    try {
-    const query = `INSERT INTO productos (nombre, url_imagen, precio, cantidad, categoria , activo) VALUES
-  ("PC oficina basica", "/images/pc_oficina.jpg", 140000.99, 0, "Computadora", TRUE),
-  ("PC gamer L4000", "/images/pc_gamerBasica.jpg", 240015.99, 0, "Computadora", TRUE),
-  ("PC Ultra R8500", "/images/pc_gamerPro.jpg", 470100, 0, "Computadora", TRUE),
-  ("ASUS L4511 21", "/images/monitor1.png", 140000.99, 0, "Monitor", TRUE),
-  ("MSI Z200 25", "/images/monitor2.png", 199436.87, 0, "Monitor", TRUE),
-  ("LG Ultra Gear 27", "/images/monitor3.png", 350470.99, 0, "Monitor", TRUE);
-    `;
-    await sequelize.query(query);
+  try {
+    await Producto.bulkCreate([
+      {
+        nombre: "PC oficina basica",
+        url_imagen: "/images/pc_oficina.jpg",
+        precio: 140000.99,
+        cantidad: 0,
+        categoria: "Computadora",
+        activo: true
+      },
+      {
+        nombre: "PC gamer L4000",
+        url_imagen: "/images/pc_gamerBasica.jpg",
+        precio: 240015.99,
+        cantidad: 0,
+        categoria: "Computadora",
+        activo: true
+      },
+      {
+        nombre: "PC Ultra R8500",
+        url_imagen: "/images/pc_gamerPro.jpg",
+        precio: 470100,
+        cantidad: 0,
+        categoria: "Computadora",
+        activo: true
+      },
+      {
+        nombre: "ASUS L4511 21",
+        url_imagen: "/images/monitor1.png",
+        precio: 140000.99,
+        cantidad: 0,
+        categoria: "Monitor",
+        activo: true
+      },
+      {
+        nombre: "LG Ultra Gear 27",
+        url_imagen: "/images/monitor2.png",
+        precio: 350470.99,
+        cantidad: 0,
+        categoria: "Monitor",
+        activo: true
+      },
+      {
+        nombre: "MSI Z200 25",
+        url_imagen: "/images/monitor3.png",
+        precio: 199436.87,
+        cantidad: 0,
+        categoria: "Monitor",
+        activo: true
+      },
+      
+    ]);
     console.log("Datos iniciales cargados en productos");
-  } catch {
-    console.log("No se cargaron los datos");
+  } catch (error) {
+    console.error("Error al cargar productos:", error);
   }
-}
-exports.grabarProducto = async function(queryP) {
-    try {
-      const query = `INSERT INTO productos (nombre, url_imagen, precio, cantidad, categoria , activo) VALUES
-  ("PC prueba", "/images/pc_prueba.jpg", 10.99, 0, "Computadora", TRUE);`;
-    await sequelize.query(query);
-    console.log("Producto guardado correctamente");
-  } catch {
-    console.log("No se guardo el Producto");
-  }
-}
+};
+

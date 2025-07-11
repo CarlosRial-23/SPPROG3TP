@@ -1,5 +1,5 @@
 const express = require("express");
-const { Producto, Venta, DetalleVenta } = require("../ORM/model/modelos");
+const { Producto, Venta, DetalleVenta } = require("../model/modelos");
 
 // Rutas de productos
 const productoRoutes = express.Router();

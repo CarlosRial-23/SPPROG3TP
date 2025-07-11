@@ -227,6 +227,21 @@ td {
   }
 }
 
+.btn-logout-top {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.btn-logout-top:hover {
+  color: #ccc;
+}
+
 @media (max-width: 480px) {
   body {
     padding: 5px 10px;

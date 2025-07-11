@@ -1,21 +1,10 @@
 function clickerBtnIngresar() {
   const inicio = document.getElementById("inicio");
-  inicio.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const nombre = document.getElementById("nombre").value.trim();
-    const password = document.getElementById("password").value;
-    if (nombre && password) {
-      localStorage.setItem("nombreUsuario", nombre);
-      window.location.href =  "/dashboard";
-    } else {
-      alert("Por favor completar todos los campos.");
-    }
-  });
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('error')) {
+    alert("Error de autenticación: " + params.get('error'));
+  }
 }
-
-// Llamar a la función de inicio
-clickerBtnIngresar();
-
 async function obtenerProductos() {
   try {
     const response = await fetch('/productos');
@@ -52,11 +41,9 @@ async function renderizarTabla(tableBody) {
         <td>${e.activo}</td>        
         <td>
           <button class="btn btn-warning btn-sm" onclick="editarProducto(${e.id}, '${e.nombre}', '${e.precio}', '${e.url_imagen}', '${e.cantidad}', ${e.activo})">
-            ✏️ Editar
+             Editar
           </button>
-          <button class="btn btn-danger btn-sm" onclick="toggleActivo(${e.id}, ${e.activo}, '${url}')">
-            ${e.activo ? '🛑 Desactivar' : '✅ Activar'}
-          </button>
+          
         </td>
       `;
       tbody.appendChild(tr);

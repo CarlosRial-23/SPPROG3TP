@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
 
-const { Producto, Venta, DetalleVenta } = require("../ORM/model/modelos");
+const { Producto, Venta, DetalleVenta } = require("../model/modelos");
 
 const ticketRoutes = express.Router();
 
