@@ -15,7 +15,7 @@ function guardarCarrito(carrito) {
 
 async function obtenerProductos() {
   try {
-    const response = await fetch('/api/productos');
+    const response = await fetch('/api');
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
     }

@@ -23,7 +23,17 @@ app.use("/api", productosRouter);
 // Montar rutas
 app.use("/producto", productoRoutes);
 app.use("/ventas", ventaRoutes);
-app.use("/tickets", ticketRoutes);
+// Configurar EJS como motor de plantillas
+app.set('view engine', 'ejs');
+
+// Configurar la carpeta de vistas (views)
+app.set('views', path.join(__dirname, 'vistas'));  // Asegúrate de tener la carpeta 'vistas' donde están los archivos .ejs
+
+// Si deseas servir archivos estáticos (por ejemplo, css, imágenes, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Usar las rutas definidas en 'ticketRoutes'
+app.use('/tickets', ticketRoutes);
 
 // Rutas estáticas
 app.use("/", express.static("public/pages"));

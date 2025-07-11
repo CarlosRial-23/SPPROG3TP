@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
       try {
+        
         const response = await fetch("/ventas/exitosa", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

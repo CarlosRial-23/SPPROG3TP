@@ -6,8 +6,6 @@ const puppeteer = require("puppeteer");
 
 const { Producto, Venta, DetalleVenta } = require("../ORM/model/modelos");
 
-
-// Rutas de tickets
 const ticketRoutes = express.Router();
 
 ticketRoutes.get("/:id", async (req, res) => {
@@ -42,7 +40,7 @@ ticketRoutes.get("/:id", async (req, res) => {
     };
 
     const html = await ejs.renderFile(
-      path.join(__dirname, "..", "public", "vistas", "ticket.ejs"),
+      path.join(__dirname, "..", "vistas", "ticket.ejs"),
       { ticket }
     );
     
@@ -87,7 +85,7 @@ ticketRoutes.get("/download/:id", async (req, res) => {
     const css = fs.readFileSync(cssPath, "utf8");
 
     let html = await ejs.renderFile(
-      path.join(__dirname, "..", "public", "vistas", "ticket.ejs"),
+      path.join(__dirname, "..", "vistas", "ticket.ejs"),
       { ticket }
     );
 

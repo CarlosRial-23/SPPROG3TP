@@ -1,0 +1,243 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-principal: #070707;
+  --color-fondo: #555;
+  --color-fondo-dos: #333333;
+  --color-secundario: #0f0f0f;
+  --color-secundario-claro: #181818;
+  --color-terciario: #db202c;
+  --color-terciario-claro: #a33736;
+  --color-texto: #f2f2f2;
+}
+
+body {
+  background-color: var(--color-principal);
+  color: var(--color-texto); /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+}
+
+header {
+  display: flex; /* Distribución flexible */
+  justify-content: space-between; /* Elementos separados */
+  align-items: center; /* Alineación vertical */
+  background: var(--color-fondo-dos); /* Color de fondo */
+  color: var(--color-texto); /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+}
+
+header h1,
+h2 {
+  font-size: 24px; /* Tamaño del título */
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.category-btn {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.product-card {
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  /*transform: scale(1.03);*/
+  transform: scale(1.2);
+}
+
+.product-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.btn-add {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.category-section {
+  display: none;
+}
+
+.category-section.active {
+  display: block;
+}
+
+.logo-header {
+  height: 100px;
+  background-color: transparent;
+}
+
+/* --- Navegación principal --- */
+#navbar-principal {
+  background-color: var(--color-fondo);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px; /* Espaciado interno */
+}
+
+#navbar-principal .nav-left,
+.nav-right {
+  display: flex;
+  gap: 1rem;
+  list-style-type: none; /* Sin viñetas */
+}
+
+#navbar-principal .nav-left li,
+.nav-right li {
+  display: inline; /* Elementos en línea */
+  margin-right: 15px; /* Separación entre enlaces */
+}
+
+#navbar-principal .nav-left a {
+  color: var(--color-texto); /* Color de texto */
+  text-decoration: none; /* Sin subrayado */
+}
+
+#navbar-principal .nav-right a {
+  color: var(--color-texto); /* Color de texto */
+  text-decoration: none; /* Sin subrayado */
+}
+
+/*NO TOCAR*/
+#carrito {
+  color: var(--color-texto);
+}
+
+.icono-carrito {
+  color: var(--color-texto); /* Color del icono */
+  font-size: 16px; /* Tamaño del icono */
+  text-decoration: none; /* Sin subrayado */
+}
+
+.icono-volver {
+  color: var(--color-texto); /* Color del icono */
+  font-size: 16px; /* Tamaño del icono */
+  text-decoration: none; /* Sin subrayado */
+}
+
+.icono- {
+  color: var(--color-texto); /* Color del icono */
+  font-size: 25px; /* Tamaño del icono */
+  text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilo para las cards del carrito */
+#lista-carrito .card {
+  height: auto; /* Altura flexible */
+  min-height: 200px; /* Altura mínima */
+  overflow: visible; /* Asegura que todo el contenido sea visible */
+}
+
+/* Estilo para el grupo de botones */
+#lista-carrito .btn-group {
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+  margin-top: 10px;
+}
+
+/* Estilo para los botones */
+#lista-carrito .btn {
+  padding: 0.25rem 0.5rem; /* Tamaño más compacto */
+  font-size: 0.8rem;
+}
+
+/* Ajusta la imagen */
+#lista-carrito .card-img-top {
+  max-height: 150px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+@media (max-width: 992px) {
+  header h1,
+  header h2 {
+    font-size: 20px;
+  }
+
+  #lista-carrito .card {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px 15px;
+    max-width: 100%;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  header h1,
+  header h2 {
+    font-size: 18px;
+  }
+
+  .logo-header {
+    height: 70px;
+    margin-bottom: 10px;
+  }
+
+  #navbar-principal {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #navbar-principal .nav-left,
+  #navbar-principal .nav-right {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  #lista-carrito .card {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+  .btn {
+    width: 100%;
+  }
+  footer .contenedor-nombres {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 5px 10px;
+  }
+
+  header h1,
+  header h2 {
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+}

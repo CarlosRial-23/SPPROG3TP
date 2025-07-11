@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alta de Producto</title>
+
+  <!-- Bootstrap & Estilos -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./cssAdmin/general.css" />
+</head>
+
+<body>
+
+  <main class="container">
+    <header>
+      <img src="./images/logo.png" alt="logo_tienda" class="logo-header">
+      <h1>ALTA PRODUCTO</h1>
+      <h2>ADMIN</h2>
+    </header>
+
+    <nav id="navbar-principal">
+      <ul class="nav-left">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/dashboard.html">Volver al Dashboard</a></li>
+      </ul>
+    </nav>
+
+    <!-- Formulario para el alta de productos -->
+    <form id="formAltaProducto" method="post"  action="/api" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input type="hidden" id="idProducto" name="id">
+      </div>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre del Producto</label>
+        <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="imagenProducto" class="form-label">Imagen del Producto</label>
+        <input type="file" class="form-control" id="imagen" name="imagenProducto" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="precio" class="form-label">Precio del Producto</label>
+        <input type="number" class="form-control" id="precioProducto" name="precio" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="activo" class="form-label">¿Está Activo?</label>
+        <select class="form-select" id="activoProducto" name="activo">
+          <option value="1" selected>Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <input type="number" id="cantidadProducto" name="cantidad" value="0"></input>
+      </div>
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria</label>
+        <select class="form-select" id="categoriaProducto" name="categoria">
+          <option value="" ></option>
+          <option value="Computadora" selected>Computadora</option>
+          <option value="Monitor">Monitor</option>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Guardar Producto</button>
+    </form>
+
+    <footer>
+      <div class="contenedor-nombres"
+        style="font-size: 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>Carlos Rial</div>
+        <div>Lucas Amarilla</div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="./jsAdmin/dashboard.js"></script>
+</body>
+
+</html>

@@ -88,4 +88,13 @@ exports.cargarTablaProductos = async function() {
     console.log("No se cargaron los datos");
   }
 }
-
+exports.grabarProducto = async function(queryP) {
+    try {
+      const query = `INSERT INTO productos (nombre, url_imagen, precio, cantidad, categoria , activo) VALUES
+  ("PC prueba", "/images/pc_prueba.jpg", 10.99, 0, "Computadora", TRUE);`;
+    await sequelize.query(query);
+    console.log("Producto guardado correctamente");
+  } catch {
+    console.log("No se guardo el Producto");
+  }
+}

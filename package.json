@@ -4,8 +4,10 @@
     "dotenv": "^17.0.1",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "multer": "^2.0.1",
     "mysql2": "^3.14.1",
-    "puppeteer": "^24.11.2",
+    "path": "^0.12.7",
+    "puppeteer": "^24.12.1",
     "router": "^2.2.0",
     "sequelize": "^6.37.7"
   }
