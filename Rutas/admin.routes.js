@@ -5,7 +5,23 @@ const cookieParser = require('cookie-parser');
 const UserRepository = require('../Estatico/js/jsAdmin/user-repository.js');
 const SECRET_JWT_KEY = process.env.SECRET_JWT_KEY
 const routerAdmin = express.Router();
-const path = require('path')
+const path = require('path');
+const multer = require('multer');
+const computadora = require('../Modelo/computadora.js')
+const monitor = require('../Modelo/monitor.js')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '..','Estatico', 'images', 'Uploads'));
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
+  }
+});
+const upload = multer({ storage });
+
+
 
 routerAdmin.use(cookieParser());
 
@@ -140,10 +156,52 @@ routerAdmin.get('/dashboard', (req,res) =>{
     res.sendFile(path.join(__dirname, '..','Admin', 'src','pagesAdmin', 'dashboard.html'))
 })
 
+routerAdmin.get('/agregarproducto', (req,res) =>{
+    if(!req.user){
+        return res.redirect('/admin')
+    }
+
+    res.sendFile(path.join(__dirname, '..','Admin', 'src','pagesAdmin', 'altaProducto.html'))
+})
+
+routerAdmin.get('/modificarproducto', (req,res) =>{
+    if(!req.user){
+        return res.redirect('/admin')
+    }
+
+    res.sendFile(path.join(__dirname, '..','Admin', 'src','pagesAdmin', 'modificarProducto.html'))
+})
 
 routerAdmin.get('/', (req, res) => {
- res.sendFile(path.join(__dirname, '..', 'Admin', 'src', 'pagesAdmin', 'index.html'));
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+    res.sendFile(path.join(__dirname, '..', 'Admin', 'src', 'pagesAdmin', 'index.html'));
 });
+
+
+
+routerAdmin.post('/alta-producto', upload.single('archivo'), async (req, res) => {
+  try {
+    const { tipo, nombre, precio, cantidad } = req.body;
+    const url_imagen = `/images/Uploads/${req.file.filename}`;
+
+    if (tipo === 'computadora') {
+      await computadora.create({ nombre, precio, cantidad, url_imagen, activo: true });
+      console.log("Computadora creada");
+    } else if (tipo === 'monitor') {
+      await monitor.create({ nombre, precio, cantidad, url_imagen, activo: true });
+      console.log('Monitor creado');
+    } else {
+      return res.status(400).send('Tipo de producto inválido');
+    }
+
+    res.send('Producto cargado correctamente');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al cargar producto');
+  }
+});
+
 
 //Desloggearse
 routerAdmin.post('/logout', (req,res)=>{
@@ -151,5 +209,19 @@ routerAdmin.post('/logout', (req,res)=>{
     res.clearCookie('refresh_token');
     res.json({message: 'Sesion finalizad'});
 })
+
+// Ruta para editar monitor
+routerAdmin.get('/admin/modificarMonitor', (req, res) => {
+  if (!req.user) return res.redirect('/admin');
+  res.sendFile(path.join(__dirname, '..', 'Admin', 'src', 'pagesAdmin', 'modificarProducto.html'));
+});
+
+// Ruta para editar computadora
+routerAdmin.get('/admin/modificarComputadora', (req, res) => {
+  if (!req.user) return res.redirect('/admin');
+  res.sendFile(path.join(__dirname, '..', 'Admin', 'src', 'pagesAdmin', 'modificarProducto.html'));
+});
+
+
 
 module.exports = routerAdmin;
